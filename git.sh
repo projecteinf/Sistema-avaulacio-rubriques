@@ -1,19 +1,20 @@
 git add -A
 
-if [ $# -eq 0 ]
+if [ $# -lt 3 ]
 then
-	echo "És obligatori introduir el comentari"
-	echo './git.sh "Comentari modificació"'
+	echo 'Format: ./git.sh "Comentari modificació" -b nombranca'
+	echo 'Exemple: ./git.sh "Afegit component ..." -b main'
 	exit 1
 fi
 
-if [ $# -gt 1 ]
+if [[ $2 != "-b" ]]
 then
-	echo "Només és permès un comentari"
-	echo './git.sh "Comentari modificació"'
+	echo 'Format: ./git.sh "Comentari modificació" -b nombranca'
+	echo 'Exemple: ./git.sh "Afegit component ..." -b main'
 	exit 1
 fi
 
 
 git commit -m "$1"
-git push origin main
+#git push origin "$3"
+
