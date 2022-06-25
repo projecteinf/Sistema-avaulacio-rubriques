@@ -16,5 +16,5 @@ fi
 
 
 git commit -m "$1"
-#git push origin "$3"
+git push origin "$3"
 
