@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { SelectStudentComponent } from './select-student/select-student.component';
+import { HeaderComponent } from './projecte/components/header/header.component';
+import { RowComponent } from './projecte/components/row/row.component';
+import { CellComponent } from './projecte/components/cell/cell.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SelectStudentComponent
+    HeaderComponent,
+    RowComponent,
+    CellComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule, FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
