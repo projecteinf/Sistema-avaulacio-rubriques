@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './projecte/components/header/header.component';
 import { RowComponent } from './projecte/components/row/row.component';
 import { CellComponent } from './projecte/components/cell/cell.component';
+import { LoginComponent } from './projecte/components/login/login.component';
+
+
+
 
 
 @NgModule({
@@ -12,7 +16,8 @@ import { CellComponent } from './projecte/components/cell/cell.component';
     AppComponent,
     HeaderComponent,
     RowComponent,
-    CellComponent
+    CellComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule, FormsModule
@@ -20,4 +25,6 @@ import { CellComponent } from './projecte/components/cell/cell.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+ 
+}
