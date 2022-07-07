@@ -1,5 +1,0 @@
-
-export ServiceManager implements IServiceManager{
-
-
-}     

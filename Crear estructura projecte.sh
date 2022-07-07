@@ -70,10 +70,14 @@ echo "Creació fitxers estructura 01-serviceLayer"
 
 # Fitxer base  (_model/01-serviceLayer)
 touch 	"$dir/_model/01-serviceLayer/impl/serviceBase.ts" \
-        "$dir/_model/01-serviceLayer/managers/IServiceManager.ts" \
-        "$dir/_model/01-serviceLayer/managers/ServiceManager.ts" \
+        "$dir/_model/01-serviceLayer/managers/iServiceManager.ts" \
+        "$dir/_model/01-serviceLayer/managers/serviceManager.ts" \
 
 echo "
+import {IPersistenceManager} from '../../03-persistenceLayer/managers/iPersistenceManager';
+import { PersistenceTechnologies } from '../../04-utilitiesLayer/appUtilities';
+
+
 export abstract class ServiceBase{
 
     constructor(protected persistenceManagers:IPersistenceManager[]){
@@ -109,11 +113,13 @@ export interface IServiceManager{
 
 }     " > "$dir/_model/01-serviceLayer/managers/iServiceManager.ts" 
 
-echo "
-export ServiceManager implements IServiceManager{
+echo "import { IServiceManager } from './iServiceManager';
 
 
-}     "  > "$dir/_model/01-serviceLayer/managers/ServiceManager.ts" 
+export class ServiceManager implements IServiceManager{
+
+
+}     "  > "$dir/_model/01-serviceLayer/managers/serviceManager.ts" 
 
 echo "Creació carpetes estructura 02-entitiesLayer"
 # Carpetes arrel (_model/02-entitiesLayer)
@@ -125,6 +131,7 @@ touch 	"$dir/_model/02-entitiesLayer/entities/entityBase.ts"
 
 # Instal·lació programa per a creació de claus úniques uuid
 npm install uuid 
+npm i --save-dev @types/uuid
 
 echo "
 import { v4 as uuidv4 } from 'uuid';
@@ -149,9 +156,9 @@ mkdir 	"$dir/_model/03-persistenceLayer/api" \
 echo "Incloure una carpeta per a cada entitat. Dins de cada carpeta (entitat) incloure la interfície associada a l'entitat." >>  "$dir/_model/03-persistenceLayer/api/readme.md"
 
 mkdir  "$dir/_model/03-persistenceLayer/impl/restStorage" "$dir/_model/03-persistenceLayer/impl/restStorage/daos"
-echo  "Incloure una carpeta per a cada entitat. Dins de cada carpeta (entitat) incloure la implementació de la classe associada a la interfície definida en la carpeta '03-persistenceLayer/api'." > "$dir/_modl/03-persistenceLayer/impl/restStorage/daos/readme.md"
+echo  "Incloure una carpeta per a cada entitat. Dins de cada carpeta (entitat) incloure la implementació de la classe associada a la interfície definida en la carpeta '03-persistenceLayer/api'." > "$dir/_model/03-persistenceLayer/impl/restStorage/daos/readme.md"
 
-echo "
+echo "import { IPersistenceManager } from './iPersistenceManager';
 export class RestStoragePersistenceManager implements IPersistenceManager{
 
 
@@ -171,6 +178,7 @@ echo "Creació fitxers estructura 04-utilitiesLayer"
 # Fitxer base (_model/04-utilitiesLayer")
 touch 	"$dir/_model/04-utilitiesLayer/appUtilities.ts"
 
+echo "export enum PersistenceTechnologies{REST_STORAGE,WEB_STORAGE}" > "$dir/_model/04-utilitiesLayer/appUtilities.ts"
 
 # Estructura bàsica curs
 

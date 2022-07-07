@@ -1,4 +1,8 @@
 
+import {IPersistenceManager} from '../../03-persistenceLayer/managers/iPersistenceManager';
+import { PersistenceTechnologies } from '../../04-utilitiesLayer/appUtilities';
+
+
 export abstract class ServiceBase{
 
     constructor(protected persistenceManagers:IPersistenceManager[]){

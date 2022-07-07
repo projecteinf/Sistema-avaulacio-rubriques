@@ -1,0 +1,1 @@
+export enum PersistenceTechnologies{REST_STORAGE,WEB_STORAGE}
