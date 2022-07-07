@@ -1,4 +1,5 @@
-
+import { IServiceManager } from '../_model/01-serviceLayer/managers/iServiceManager';
+import { ServiceManager } from '../_model/01-serviceLayer/managers/serviceManager';
 import { Injectable } from '@angular/core';
 
 @Injectable({

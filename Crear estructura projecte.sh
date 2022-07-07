@@ -31,7 +31,8 @@ mkdir "$dir/components" "$dir/guards" "$dir/interceptors" "$dir/_model" "$dir/se
 # Fitxer base  (_model/01-serviceLayer)
 touch "$dir/services/app.services.ts"
 
-echo "
+echo "import { IServiceManager } from '../_model/01-serviceLayer/managers/iServiceManager';
+import { ServiceManager } from '../_model/01-serviceLayer/managers/serviceManager';
 import { Injectable } from '@angular/core';
 
 @Injectable({
