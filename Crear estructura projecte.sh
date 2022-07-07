@@ -49,9 +49,6 @@ export class AppService {
     }
 }" > "$dir/services/app.services.ts"
 
-
-
-
 # Carpetes arrel (_model)
 echo "Creació carpetes estructura model"
 
@@ -66,10 +63,8 @@ mkdir 	"$dir/_model/01-serviceLayer/api" \
 	"$dir/_model/01-serviceLayer/impl" \
 	"$dir/_model/01-serviceLayer/managers" 
 
-
 echo "Incloure una carpeta per a cada entitat. Dins de cada carpeta (entitat) incloure la interfície associada a l'entitat." > "$dir/_model/01-serviceLayer/api/readme.md"
 echo "Incloure una carpeta per a cada entitat. Dins de cada carpeta (entitat) incloure la implementació de la classe associada a la interfície definida en la carpeta '/01-serviceLayer/api'." > "$dir/_model/01-serviceLayer/api/readme.md"
-
 
 echo "Creació fitxers estructura 01-serviceLayer"
 
@@ -107,8 +102,6 @@ export abstract class ServiceBase{
     }
 } " > "$dir/_model/01-serviceLayer/impl/serviceBase.ts"
 
-
-
 echo "
 export interface IServiceManager{
 
@@ -116,14 +109,11 @@ export interface IServiceManager{
 
 }     " > "$dir/_model/01-serviceLayer/managers/iServiceManager.ts" 
 
-
 echo "
 export ServiceManager implements IServiceManager{
 
 
 }     "  > "$dir/_model/01-serviceLayer/managers/ServiceManager.ts" 
-
-
 
 echo "Creació carpetes estructura 02-entitiesLayer"
 # Carpetes arrel (_model/02-entitiesLayer)
@@ -150,9 +140,6 @@ export abstract class EntityBase{
     }
 } " > "$dir/_model/02-entitiesLayer/entities/entityBase.ts"
 
-
-
-
 echo "Creació carpetes estructura 03-persistenceLayer"
 # Carpetes arrel (_model/03-persistenceLayer)
 mkdir 	"$dir/_model/03-persistenceLayer/api" \
@@ -164,18 +151,11 @@ echo "Incloure una carpeta per a cada entitat. Dins de cada carpeta (entitat) in
 mkdir  "$dir/_model/03-persistenceLayer/impl/restStorage" "$dir/_model/03-persistenceLayer/impl/restStorage/daos"
 echo  "Incloure una carpeta per a cada entitat. Dins de cada carpeta (entitat) incloure la implementació de la classe associada a la interfície definida en la carpeta '03-persistenceLayer/api'." > "$dir/_modl/03-persistenceLayer/impl/restStorage/daos/readme.md"
 
-
 echo "
 export class RestStoragePersistenceManager implements IPersistenceManager{
 
 
 }" > "$dir/_model/03-persistenceLayer/managers/restStoragePersistenceManager.ts"
-
-
-
-
-
-
 
 echo "Creació fitxers estructura 03-persistenceLayer"
 # Fitxer base (_model/03-persistenceLayer)
@@ -187,15 +167,9 @@ export interface IPersistenceManager{
 
 }" > "$dir/_model/03-persistenceLayer/managers/iPersistenceManager.ts"
 
-
-
-
-
 echo "Creació fitxers estructura 04-utilitiesLayer"
 # Fitxer base (_model/04-utilitiesLayer")
 touch 	"$dir/_model/04-utilitiesLayer/appUtilities.ts"
-
-
 
 
 # Estructura bàsica curs
