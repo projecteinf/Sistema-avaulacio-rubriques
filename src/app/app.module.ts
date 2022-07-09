@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './projecte/components/header/header.component';
 import { RowComponent } from './projecte/components/row/row.component';
 import { CellComponent } from './projecte/components/cell/cell.component';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -15,7 +17,7 @@ import { CellComponent } from './projecte/components/cell/cell.component';
     CellComponent
   ],
   imports: [
-    BrowserModule, FormsModule
+    BrowserModule, FormsModule, AppRoutingModule, BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

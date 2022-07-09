@@ -1,3 +1,11 @@
-<app-header></app-header>
-<h1>Capacitats clau</h1>
-<app-row></app-row>
+<mat-form-field appearance="standard">
+    <mat-label>Usuari</mat-label>
+    <input matInput placeholder="Usuari">
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+<input matInput [type]="hide ? 'password' : 'text'">
+<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+</button>
+</mat-form-field>
