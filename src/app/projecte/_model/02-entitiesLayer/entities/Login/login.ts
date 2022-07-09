@@ -1,13 +1,17 @@
-import { v4 as uuidv4 } from 'uuid'
+import { EntityBase } from '../entityBase';
 
-export class Login {
-    
-    // Totes les propietats que estem utilitzant són públiques
-    id?: string;
+export class Login extends EntityBase{
     usuari?: string;
     password?: string;
 
-    constructor() {
-        this.id = uuidv4();     // Assignem un nou id a l'objecte
+    public static inicialitzar(usuari:string, password:string): Login {
+        var login: Login = new Login();        
+        login.usuari = usuari;
+        login.password = password;
+        return login;
+    }
+
+    override toString():string {
+        return `Id: ${this.id} | Usuari:${this.usuari} | Password:${this.password}`;
     }
 }
