@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Login } 
-  from './projecte/_model/02-entitiesLayer/entities/Login/login';
+import { Login } from './projecte/_model/02-entitiesLayer/entities/login/Login';
 
 @Component({
   selector: 'app-root',
