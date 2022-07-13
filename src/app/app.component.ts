@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginWebService } 
   from './projecte/_model/01-serviceLayer/api/loginWebService';
+import { Login } from './projecte/_model/02-entitiesLayer/entities/login/Login';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class AppComponent {
   constructor(private loginWebService: LoginWebService) {}
 
   autentificar() {
-    this.loginWebService.autentificar().subscribe(login=>console.log(login));
+    var login:Login = Login.inicialitzar(this.usuari!,this.password!);
+    
+    this.loginWebService.autentificar(login).subscribe(login=>console.log(login));
   }
 }

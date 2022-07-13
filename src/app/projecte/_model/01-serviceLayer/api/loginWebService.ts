@@ -12,8 +12,9 @@ import { environment } from 'src/environments/environment';
 export class LoginWebService {
     constructor(private http:HttpClient) { }
 
-    autentificar():Observable<Login> {
-        return this.http.get<Login>(`${environment.urlApi}login`);
+    autentificar(login:Login):Observable<Login> {
+        //return this.http.post<Login>(url,'{"Usuari":"nom usuari","Password":"Password usuari"}');
+        return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 }
 
