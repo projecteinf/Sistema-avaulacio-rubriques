@@ -12,10 +12,13 @@ export class AppComponent {
   hide = true;                
   usuari?:string; 
   password?:string;  
-  loginWebService?:LoginWebService;
+
+  constructor(private loginWebService: LoginWebService) {}
 
   autentificar() {
-    this.loginWebService?.autentificar().subscribe(login=>console.log(login));
+    console.log("Polsat botó autentificar");
+    
+    this.loginWebService.autentificar().subscribe(login=>console.log(login));
         
     
   }
