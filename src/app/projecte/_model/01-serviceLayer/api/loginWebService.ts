@@ -8,7 +8,7 @@ import { Login } from '../../02-entitiesLayer/entities/login/Login';
 export class LoginWebService {
     constructor(private http:HttpClient) { }
 
-    autentificar() {
+    autentificar():Observable<Login> {
         return this.http.get<Login>("http://localhost:8080/api/login");
     }
 }
