@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { LoginWebService } from './projecte/_model/01-serviceLayer/api/loginWebService';
-import { Login } from './projecte/_model/02-entitiesLayer/entities/login/Login';
+import { LoginWebService } 
+  from './projecte/_model/01-serviceLayer/api/loginWebService';
+
 
 @Component({
   selector: 'app-root',
@@ -16,10 +16,6 @@ export class AppComponent {
   constructor(private loginWebService: LoginWebService) {}
 
   autentificar() {
-    console.log("Polsat botó autentificar");
-    
     this.loginWebService.autentificar().subscribe(login=>console.log(login));
-        
-    
   }
 }
