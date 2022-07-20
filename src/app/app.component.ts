@@ -20,7 +20,7 @@ export class AppComponent {
   autentificar() {
     var login:Login = Login.inicialitzar(this.usuari!,this.password!);
     
-    this.loginWebService.autentificar(login).subscribe(total=> {
+    this.loginWebService.autentificar(login).subscribe(total => {
        var totalOk:any = total;
        console.log(totalOk['response'][0]);
       
