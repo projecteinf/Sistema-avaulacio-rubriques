@@ -14,11 +14,17 @@ export class AppComponent {
   usuari?:string; 
   password?:string;  
 
+
   constructor(private loginWebService: LoginWebService) {}
 
   autentificar() {
     var login:Login = Login.inicialitzar(this.usuari!,this.password!);
     
-    this.loginWebService.autentificar(login).subscribe(login=>console.log(login));
+    this.loginWebService.autentificar(login).subscribe(total=> {
+       var totalOk:any = total;
+       console.log(totalOk['response'][0]);
+      
+    });
+    
   }
 }
