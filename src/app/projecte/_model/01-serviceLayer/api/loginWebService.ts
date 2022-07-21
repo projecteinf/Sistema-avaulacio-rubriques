@@ -18,7 +18,7 @@ export class LoginWebService {
     }
 
     index():Observable<String> {
-        const token = JSON.stringify(localStorage.getItem('login'));
+        const token = localStorage.getItem('login');
         
         const headerDict = {
             'Access-Control-Allow-Origin':'http://localhost:4200',
