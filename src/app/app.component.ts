@@ -22,7 +22,8 @@ export class AppComponent {
     
     this.loginWebService.autentificar(login).subscribe(total => {
        var totalOk:any = total;
-       console.log(totalOk['response'][0]);
+       if (totalOk==null) console.log("Autentificació no vàlida");
+       else console.log(totalOk['response'][0]);
       
     });
     
