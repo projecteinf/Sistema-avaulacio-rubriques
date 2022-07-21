@@ -24,6 +24,7 @@ export class AppComponent {
        var totalOk:any = total;
        if (totalOk==null) console.log("Autentificació no vàlida");
        else this.jwtToken=totalOk['response'][0];
+       localStorage.setItem('login', JSON.stringify(this.jwtToken));
        console.log(this.jwtToken);
       
     });
