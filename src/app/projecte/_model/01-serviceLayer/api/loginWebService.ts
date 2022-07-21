@@ -18,19 +18,21 @@ export class LoginWebService {
     }
 
     index():Observable<String> {
+        const token = JSON.stringify(localStorage.getItem('login'));
+        
         const headerDict = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Authorization': JSON.stringify(localStorage.getItem('login')),
+            'Access-Control-Allow-Origin':'http://localhost:4200',
+            'Content-Type':  'application/x-www-form-urlencoded; charset=UTF-8;application/json',
+            'Accept': 'application/json, text/plain, /',
+            'Access-Control-Allow-Headers': 'Origin,Content-Type,Accept,Authorization',
+            'Authorization': `Bearer ${token}`,
           };
 
         const requestOptions = {                                                                                                                                                                                 
             headers: new HttpHeaders(headerDict), 
           };
 
-          
-        return this.http.get<String>(`${environment.urlApi}login`);
+        return this.http.get<String>(`${environment.urlApi}login`,requestOptions);
     }
 }
 
