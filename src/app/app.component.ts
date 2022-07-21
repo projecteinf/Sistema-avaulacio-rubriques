@@ -13,7 +13,7 @@ export class AppComponent {
   hide = true;                
   usuari?:string; 
   password?:string;  
-
+  jwtToken?:JSON;
 
   constructor(private loginWebService: LoginWebService) {}
 
@@ -23,7 +23,8 @@ export class AppComponent {
     this.loginWebService.autentificar(login).subscribe(total => {
        var totalOk:any = total;
        if (totalOk==null) console.log("Autentificació no vàlida");
-       else console.log(totalOk['response'][0]);
+       else this.jwtToken=totalOk['response'][0];
+       console.log(this.jwtToken);
       
     });
     
