@@ -30,4 +30,11 @@ export class AppComponent {
     });
     
   }
+
+  index() {
+    this.loginWebService.index().subscribe(total => {
+      console.log(total);
+     
+   });
+  }
 }
