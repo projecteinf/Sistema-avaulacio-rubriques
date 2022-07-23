@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Login } from '../../02-entitiesLayer/entities/login/Login';
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,7 @@ export class LoginWebService {
         return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
-    index():Observable<String> {
+    index():Observable<any> {
         const token = localStorage.getItem('login');
         
         const headerDict = {
@@ -26,13 +26,19 @@ export class LoginWebService {
             'Accept': 'application/json, text/plain, /',
             'Access-Control-Allow-Headers': 'Origin,Content-Type,Accept,Authorization',
             'Authorization': `Bearer ${token}`,
-          };
+            };
 
         const requestOptions = {                                                                                                                                                                                 
             headers: new HttpHeaders(headerDict), 
-          };
-
-        return this.http.get<String>(`${environment.urlApi}login`,requestOptions);
+            };
+            
+        try {
+            return this.http.get<String>(`${environment.urlApi}login`,requestOptions);
+        } catch (e) {
+            return of({});;
+        }
+          
+        
     }
 }
 
