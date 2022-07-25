@@ -31,9 +31,14 @@ export class AppComponent {
   }
 
   verificarToken() {
+    let newjwt;
     this.loginWebService.verificarToken().subscribe(  
       {
-        next: (v) => {console.log(v),localStorage.setItem('login', this.jwtToken!)},
+        next: (v) => {
+          console.log(v['response'][0]),
+          newjwt = JSON.parse(v['response'][0]),
+          
+          localStorage.setItem('login', JSON.stringify(JSON.parse(v['response'][0]).new))},
         error: (e) => console.error("Error en l'execució"),        
       }            
     );
