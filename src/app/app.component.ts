@@ -27,12 +27,10 @@ export class AppComponent {
        else this.jwtToken=totalOk['response'][0];
        localStorage.setItem('login', this.jwtToken!);
        console.log(this.jwtToken);
-      
     });
-    
   }
 
-  index() {
+  verificarToken() {
     this.loginWebService.index().subscribe(  
       {
         next: (v) => console.log(v),
