@@ -17,7 +17,7 @@ export class LoginWebService {
         return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
-    index():Observable<any> {
+    verificarToken():Observable<any> {
         const token = localStorage.getItem('login');
         
         const headerDict = {
@@ -31,7 +31,7 @@ export class LoginWebService {
         const requestOptions = {                                                                                                                                                                                 
             headers: new HttpHeaders(headerDict), 
             };
-            
+
         try {
             return this.http.get<String>(`${environment.urlApi}login`,requestOptions);
         } catch (e) {
