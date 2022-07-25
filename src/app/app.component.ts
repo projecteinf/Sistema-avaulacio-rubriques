@@ -34,8 +34,13 @@ export class AppComponent {
     this.loginWebService.verificarToken().subscribe(  
       {
         next: (v) => {
-          console.log(v['response'][0]),
-          localStorage.setItem('login', JSON.stringify(JSON.parse(v['response'][0]).new))},
+            if (JSON.parse(v['response'][0]).new.length!==0) {
+              console.log(v['response'][0]),
+              localStorage.setItem('login', JSON.stringify(JSON.parse(v['response'][0]).new))
+            } else { 
+              console.log("No renovació Token"); 
+            }
+          },
         error: (e) => console.error("Error en l'execució"),        
       }            
     );
