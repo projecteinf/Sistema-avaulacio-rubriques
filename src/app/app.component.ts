@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 import { LoginWebService } 
   from './projecte/_model/01-serviceLayer/api/loginWebService';
 import { Login } from './projecte/_model/02-entitiesLayer/entities/login/Login';
@@ -33,26 +33,11 @@ export class AppComponent {
   }
 
   index() {
-    // https://stackoverflow.com/questions/50490176/typescript-angular-try-catch-any-error-in-try-block-not-going-to-catch-block
-
-    const validLogin = this.loginWebService.index().pipe(map(data => {
-      //if (data === null) return ErrorObservable("null data")
-      return data;
-    }));
-
-    validLogin.subscribe(
-      data => console.log(data),
-      console.error
+    this.loginWebService.index().subscribe(  
+      {
+        next: (v) => console.log(v),
+        error: (e) => console.error("Error en l'execució"),        
+      }            
     );
-    /* 
-    try {
-      this.loginWebService.index().subscribe(total => {      
-        console.log(total);
-       
-     });
-    } catch (e) {
-      console.log("Autentificació no vàlida");
-    } */
-    
   }
 }
