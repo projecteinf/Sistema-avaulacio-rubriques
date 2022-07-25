@@ -38,7 +38,8 @@ export class AppComponent {
               console.log(v['response'][0]),
               localStorage.setItem('login', JSON.stringify(JSON.parse(v['response'][0]).new))
             } else { 
-              console.log("No renovació Token"); 
+              console.log("No renovació Token");
+              console.log(v['response'][0]); 
             }
           },
         error: (e) => console.error("Error en l'execució"),        
