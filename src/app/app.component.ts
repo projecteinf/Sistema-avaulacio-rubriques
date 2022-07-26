@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { map, of } from 'rxjs';
 import { LoginWebService } 
   from './projecte/_model/01-serviceLayer/api/loginWebService';
+import { ServiceManager } from './projecte/_model/01-serviceLayer/managers/serviceManager';
 import { Login } from './projecte/_model/02-entitiesLayer/entities/login/Login';
 
 
@@ -16,15 +17,15 @@ export class AppComponent {
   password?:string;  
   jwtToken?:string;
 
-  constructor(private loginWebService: LoginWebService) {}
+  constructor(private loginWebService: LoginWebService,private serviceManager: ServiceManager) {}
 
   autentificar() {
     var login:Login = Login.inicialitzar(this.usuari!,this.password!);
     
-    this.loginWebService.autentificar(login).subscribe(total => {
-       var totalOk:any = total;
-       if (totalOk==null) console.log("Autentificació no vàlida");
-       else this.jwtToken=totalOk['response'][0];
+    this.loginWebService.autentificar(login).subscribe(token => {
+       var tokenAux:any = token;
+       if (tokenAux==null) console.log("Autentificació no vàlida");
+       else this.jwtToken=tokenAux['response'][0];
        localStorage.setItem('login', this.jwtToken!);
        console.log(this.jwtToken);
     });
