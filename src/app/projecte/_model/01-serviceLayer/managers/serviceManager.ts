@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IPersistenceManager } from '../../03-persistenceLayer/managers/iPersistenceManager';
+import { WebStoragePersistenceManager } from '../../03-persistenceLayer/managers/webStoragePersistenceManager';
 import { IServiceManager } from './iServiceManager';
 
 @Injectable({
@@ -11,6 +12,7 @@ export class ServiceManager implements IServiceManager{
 
     constructor(){
         this.persistenceManagers=[];
+        this.persistenceManagers.push(new WebStoragePersistenceManager());
     }
 
 }     
