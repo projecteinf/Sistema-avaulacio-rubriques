@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPersistenceManager } from '../../03-persistenceLayer/managers/iPersistenceManager';
-import { PersistenceTechnologies } from '../../04-utilitiesLayer/appUtilities';
 import { IServiceManager } from './iServiceManager';
 
 @Injectable({
@@ -13,8 +11,6 @@ export class ServiceManager implements IServiceManager{
 
     constructor(){
         this.persistenceManagers=[];
-       
-
     }
 
 }     
