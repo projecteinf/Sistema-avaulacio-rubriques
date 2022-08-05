@@ -4,6 +4,7 @@ import { LoginWebService }
   from './projecte/_model/01-serviceLayer/api/loginWebService';
 import { ServiceManager } from './projecte/_model/01-serviceLayer/managers/serviceManager';
 import { Login } from './projecte/_model/02-entitiesLayer/entities/login/Login';
+import { LoginDAO } from './projecte/_model/03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class AppComponent {
        var tokenAux:any = token;
        if (tokenAux==null) console.log("Autentificació no vàlida");
        else this.jwtToken=tokenAux['response'][0];
-       localStorage.setItem('login', this.jwtToken!);
+       LoginDAO.save(this.jwtToken!);
        console.log(this.jwtToken);
     });
   }

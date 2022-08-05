@@ -20,8 +20,7 @@ export class LoginWebService {
     }
 
     verificarToken():Observable<any> {
-        // const token = localStorage.getItem('login');
-        const token = LoginDAO.getLogin();
+        const token = LoginDAO.get();
         const headerDict = {
             'Access-Control-Allow-Origin':'http://localhost:4200',
             'Content-Type':  'application/x-www-form-urlencoded; charset=UTF-8;application/json',
