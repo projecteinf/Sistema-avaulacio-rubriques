@@ -38,7 +38,7 @@ export class AppComponent {
         next: (v) => {
             if (JSON.parse(v['response'][0]).new.length!==0) {
               console.log(v['response'][0]),
-              localStorage.setItem('login', JSON.stringify(JSON.parse(v['response'][0]).new))
+              LoginDAO.save(JSON.stringify(JSON.parse(v['response'][0]).new));
             } else { 
               console.log("No renovació Token");
               console.log(v['response'][0]); 
