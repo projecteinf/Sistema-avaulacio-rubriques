@@ -48,7 +48,7 @@ export class LoginWebService {
 
 function tokenValid(token: any):boolean {
     const caduca:number = (JSON.parse(token)).expireAt;
-    const prorroga_token:number = 10; // Percentatge. (50 implica a la meitat de la caducitat. Aquest paràmetre ha de coincidir amb l'especificat a Params.php (API)
+    const prorroga_token:number = 50; // Percentatge. (50 implica a la meitat de la caducitat. Aquest paràmetre ha de coincidir amb l'especificat a Params.php (API)
     const limit = caduca * prorroga_token/100;
     const ara:number = (new Date).getTime()/1000 // Eliminem a partir de dècimes de segon
     return limit>ara;
