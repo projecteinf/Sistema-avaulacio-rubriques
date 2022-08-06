@@ -32,20 +32,25 @@ export class AppComponent {
     });
   }
 
+  prorrogarToken(token: any):boolean {
+    const keysObj:number = Object.keys(token).length;
+    const renovar:number = JSON.parse(token['response'][0]).new.length;
+    return Object.keys(token).length!==0 && JSON.parse(token['response'][0]).new.length!==0;
+  }
+
   verificarToken() {
     this.loginWebService.verificarToken().subscribe(  
       {
         next: (v) => {
-            if (JSON.parse(v['response'][0]).new.length!==0) {
-              console.log(v['response'][0]),
-              LoginDAO.save(JSON.stringify(JSON.parse(v['response'][0]).new));
-            } else { 
-              console.log("No renovació Token");
-              console.log(v['response'][0]); 
-            }
-          },
+          if (this.prorrogarToken(v)) { 
+            console.log(v['response'][0]),
+            LoginDAO.save(JSON.stringify(JSON.parse(v['response'][0]).new));
+          }
+        },
         error: (e) => console.error("Error en l'execució"),        
       }            
     );
   }
 }
+
+
