@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../lib/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './projecte/components/home/home.component';
+import { LoginComponent } from './projecte/components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
   ],
   imports: [
     MaterialModule,
