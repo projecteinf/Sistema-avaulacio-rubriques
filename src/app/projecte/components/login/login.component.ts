@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { map, of } from 'rxjs';
 import { LoginWebService } 
-  from '../../../projecte/_model/01-serviceLayer/api/loginWebService';
-import { ServiceManager } from '../../../projecte/_model/01-serviceLayer/managers/serviceManager';
-import { Login } from '../../../projecte/_model/02-entitiesLayer/entities/login/Login';
-import { LoginDAO } from '../../../projecte/_model/03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
+  from '../../_model/01-serviceLayer/api/loginWebService';
+import { ServiceManager } from '../../_model/01-serviceLayer/managers/serviceManager';
+import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
+import { LoginDAO } from '../../_model/03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
 
 
 @Component({
