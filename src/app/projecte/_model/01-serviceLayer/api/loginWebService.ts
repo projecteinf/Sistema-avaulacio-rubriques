@@ -15,7 +15,8 @@ export class LoginWebService {
     login?:Login;
     constructor(private http:HttpClient) { }
 
-    autentificar(login:Login):Observable<Login> {        
+    autentificar(login:Login):Observable<Login> { 
+        console.log("Funció autentificar: "+JSON.stringify(login));
         return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
