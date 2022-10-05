@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // Cal verificar que el token sigui correcte
   }
 
 }
