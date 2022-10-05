@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './projecte/components/home/home.component';
 import { LoginComponent } from './projecte/components/login/login.component';
 import { Error404Component } from './projecte/components/error404/error404.component';
+import { AvaluarComponent } from './projecte/components/avaluar/avaluar.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { Error404Component } from './projecte/components/error404/error404.compo
     HomeComponent,
     LoginComponent,
     Error404Component,
+    AvaluarComponent,
   ],
   imports: [
     MaterialModule,
