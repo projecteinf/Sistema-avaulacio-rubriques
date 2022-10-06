@@ -14,7 +14,7 @@ export class AvaluarComponent implements OnInit {
   students: Login[] = new Array<Login>();
   constructor(private loginWebService: LoginWebService) { 
     loginWebService.getStudents().subscribe(students => {
-      this.students = students.sort();
+      this.students = students.sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
     });
   
   }
