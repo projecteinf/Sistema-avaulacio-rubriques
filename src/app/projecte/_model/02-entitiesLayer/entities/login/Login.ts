@@ -3,6 +3,8 @@ import { EntityBase } from '../entityBase';
 export class Login extends EntityBase{
     usuari?: string;
     password?: string;
+    nom?: string;
+    rol?: string;
 
     public static inicialitzar(usuari:string, password:string): Login {
         var login: Login = new Login();        

@@ -45,6 +45,10 @@ export class LoginWebService {
             return of({});;
         }
     }
+
+    getStudents():Observable<Login[]> { 
+       return this.http.get<Login[]>(`${environment.urlApi}getStudents`);       
+    }
 }
 
 function tokenValid(token: any):boolean {
