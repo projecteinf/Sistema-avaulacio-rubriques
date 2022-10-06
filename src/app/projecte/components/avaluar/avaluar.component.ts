@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
-
+import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
 
 
 @Component({
@@ -12,10 +12,16 @@ import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebServic
 export class AvaluarComponent implements OnInit {
 
   students: Login[] = new Array<Login>();
-  constructor(private loginWebService: LoginWebService) { 
+  rubrica: any;
+
+  constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     loginWebService.getStudents().subscribe(students => {
       this.students = students.sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
     });
+
+    rubricaWebService.getRubrica("2DAW").subscribe(rubrica => {
+      this.rubrica = rubrica;
+    })
   
   }
 
