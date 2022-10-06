@@ -13,8 +13,7 @@ export class RubricaWebService {
     constructor(private http:HttpClient) { }
 
     getRubrica(curs:string):Observable<any[]> { 
-        var r=this.http.get<any>(`${environment.urlApi}getRubrica/curs`);
-        return this.http.get<any>(`${environment.urlApi}getRubrica/curs`);       
+        return this.http.get<any>(`${environment.urlApi}getRubrica/${curs}`);
      }
  }
 
