@@ -3,13 +3,14 @@ import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
 import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
 import { LoginDAO } from '../../../projecte/_model/03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
+import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
 
 @Component({
   selector: 'app-avaluar',
   templateUrl: './avaluar.component.html',
   styleUrls: ['./avaluar.component.css']
 })
-export class AvaluarComponent implements OnInit {
+export class AvaluarComponent {
 
   students: Login[] = new Array<Login>();
   cursos!: String[];
@@ -19,9 +20,8 @@ export class AvaluarComponent implements OnInit {
     this.getToken().subscribe(token => {
       loginWebService.getStudents().subscribe(students => {
         let curs =  JSON.parse(token).cursos;
-        let teacher = JSON.parse(token).name;
         this.students = students.filter(this.cursing.bind(this.cursing,curs)).sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
-        LoginDAO.saveStudentsTeacher(this.students,teacher);
+        WebStoragePersistenceManager.saveData(this.getTeacherName(token),JSON.stringify(this.students));
       });
     });
 
@@ -30,15 +30,20 @@ export class AvaluarComponent implements OnInit {
     })
   }
 
+  getTeacherName(token:any) { return JSON.parse(token).name;}
+
   cursing(curs:any, student:any) { 
     return student.cursos.filter((cursant: any) => curs.includes(cursant)).length>0; 
   }
 
   getToken() { return this.loginWebService.getToken();  }
 
-  studentChange(event:Event) {
-
-  }
+  studentChange(current:any) {
+    this.getToken().subscribe(token => {
+      let students = JSON.parse(WebStoragePersistenceManager.getData(this.getTeacherName(token)));
+      let cursos = students.filter( (student: { user: any; })  =>  student.user==current.value.user )[0].cursos;
+    }
+  );}
   
   studentDisplay(st1:Login,st2:Login): boolean {
     const isValue = st1 && st2 ? st1.usuari == st2.usuari : st1 === st2;

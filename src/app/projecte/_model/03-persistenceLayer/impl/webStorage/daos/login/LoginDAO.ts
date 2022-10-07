@@ -9,7 +9,5 @@ export class LoginDAO implements ILoginDAO {
     static save(data:string) {
         return WebStoragePersistenceManager.saveData('login',data);
     }
-    static saveStudentsTeacher(students: Login[],teacherName: string) {
-        return WebStoragePersistenceManager.saveData(teacherName,students);
-    }
+    
 }
