@@ -16,8 +16,8 @@ export class AvaluarComponent implements OnInit {
   rubrica: any;
   
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
-    let cursos = this.getCurrentUserCourses();
-    let students = loginWebService.getStudents();
+    //let cursos = this.getCurrentUserCourses();
+    //let students = loginWebService.getStudents();
 
     this.getCurrentUserCourses().subscribe(curs => {
       loginWebService.getStudents().subscribe(students => {
