@@ -3,6 +3,7 @@ import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
 import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
 import { LoginDAO } from '../../../projecte/_model/03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
+import { forkJoin, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-avaluar',
@@ -13,28 +14,29 @@ export class AvaluarComponent implements OnInit {
 
   students: Login[] = new Array<Login>();
   rubrica: any;
-
+  
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
-    loginWebService.getStudents().subscribe(students => {
-      this.students = students.sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
+    let cursos = this.getCurrentUserCourses();
+    let students = loginWebService.getStudents();
+
+    this.getCurrentUserCourses().subscribe(curs => {
+      loginWebService.getStudents().subscribe(students => {
+        curs =  JSON.parse(curs).cursos;
+        console.log("Monitoritzant curs"+curs);
+        this.students = students.filter(this.cursing.bind(this.cursing,curs)).sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom))
+      });
     });
 
-    var cursos = this.getCurrentUserCourses();
     rubricaWebService.getRubrica("2DAW").subscribe(rubrica => {
       this.rubrica = rubrica;
     })
-  
   }
 
-  getCurrentUserCourses() {
-    this.loginWebService.getToken().subscribe(  
-      {
-        next: (token) => {
-          console.log("Cursos token: " +JSON.parse(token).cursos);
-        }
-      }            
-    );
+  cursing(curs:any, student:any) { 
+    return student.cursos.filter((cursant: any) => curs.includes(cursant)).length>0; 
   }
+
+  getCurrentUserCourses() { return this.loginWebService.getToken();  }
 
   ngOnInit(): void { }
   studentDisplay(st1:Login,st2:Login): boolean {
@@ -42,5 +44,4 @@ export class AvaluarComponent implements OnInit {
     if (isValue) Object.assign(st2,st1);
     return isValue;
   }
-
 }
