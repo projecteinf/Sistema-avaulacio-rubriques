@@ -1,3 +1,4 @@
+import { Login } from "src/app/projecte/_model/02-entitiesLayer/entities/login/Login";
 import { ILoginDAO } from "../../../../api/login/ILoginDAO";
 import { WebStoragePersistenceManager } from "../../../../managers/webStoragePersistenceManager";
 
@@ -7,5 +8,8 @@ export class LoginDAO implements ILoginDAO {
     }
     static save(data:string) {
         return WebStoragePersistenceManager.saveData('login',data);
+    }
+    static saveStudentsTeacher(students: Login[],teacherName: string) {
+        return WebStoragePersistenceManager.saveData(teacherName,students);
     }
 }

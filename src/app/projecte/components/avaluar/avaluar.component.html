@@ -1,10 +1,13 @@
 <mat-form-field appearance="fill">
     <mat-label>Alumnes</mat-label>
-    <mat-select [compareWith]="studentDisplay">
+    <mat-select [compareWith]="studentDisplay" (selectionChange)="studentChange($event)">
         <mat-option  *ngFor="let student of students" [value]="student" >
             {{student.nom}}
         </mat-option>
     </mat-select>
 </mat-form-field>
+
+
+
 
 {{rubrica}}

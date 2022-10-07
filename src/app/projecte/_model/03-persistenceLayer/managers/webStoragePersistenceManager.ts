@@ -1,6 +1,6 @@
 import { IPersistenceManager } from './iPersistenceManager';
 export class WebStoragePersistenceManager implements IPersistenceManager{
-    static saveData(name:string, data: string) {
+    static saveData(name:string, data: any) {
         localStorage.setItem(name, data);
     }
     static getData(name:string):any {
