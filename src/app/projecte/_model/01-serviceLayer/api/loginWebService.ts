@@ -20,6 +20,10 @@ export class LoginWebService {
         return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
+    getToken():Observable<any> {
+        return of(LoginDAO.get()); 
+    }
+
     verificarToken():Observable<any> {
         const token = LoginDAO.get(); // Obtenir Token de LocalStorage
         if (tokenValid(token)) {
@@ -49,6 +53,7 @@ export class LoginWebService {
     getStudents():Observable<Login[]> { 
        return this.http.get<Login[]>(`${environment.urlApi}getStudents`);       
     }
+
 }
 
 function tokenValid(token: any):boolean {
