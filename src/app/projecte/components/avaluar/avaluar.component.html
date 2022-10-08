@@ -11,7 +11,7 @@
 
 <mat-form-field appearance="fill" *ngIf="selCurs">
     <mat-label>Cursos</mat-label>
-    <mat-select >
+    <mat-select (selectionChange)="courseChange($event)">
         <mat-option  *ngFor="let curs of cursos" [value]="curs" >
             {{curs}}
         </mat-option>

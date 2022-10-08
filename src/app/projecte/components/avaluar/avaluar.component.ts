@@ -3,6 +3,7 @@ import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
 import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
+import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
 
 @Component({
   selector: 'app-avaluar',
@@ -13,7 +14,7 @@ export class AvaluarComponent {
 
   students: Login[] = new Array<Login>();
   cursos!: String[];
-  rubrica: any;
+  rubrica?: Rubrica;
   selCurs: boolean = false;
   currentCurs!: string;
   
@@ -33,7 +34,7 @@ export class AvaluarComponent {
       let cursos = students.filter( (student: { user: any; })  =>  student.user==current.value.user )[0].cursos;
       if (this.selCurs = cursos.length>1) {
         this.cursos=cursos;
-        this.rubrica=null;
+        this.rubrica=undefined;
       }
       else {
         this.currentCurs=cursos[0];
@@ -42,6 +43,11 @@ export class AvaluarComponent {
     }
   );}
   
+  courseChange(current:any) {
+    console.log(current.value);
+    this.getRubrica(current.value);
+  }
+
   studentDisplay(st1:Login,st2:Login): boolean {
     const isValue = st1 && st2 ? st1.usuari == st2.usuari : st1 === st2;
     if (isValue) Object.assign(st2,st1);
@@ -56,7 +62,7 @@ export class AvaluarComponent {
   getTeacherName(token:any) { return JSON.parse(token).name;}
   getRubrica(curs:string) {
     this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
-      this.rubrica = rubrica;
+      this.rubrica = new Rubrica(JSON.stringify(rubrica));
     })
   }
 }
