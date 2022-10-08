@@ -1,3 +1,5 @@
+
+
 <mat-form-field appearance="fill">
     <mat-label>Alumnes</mat-label>
     <mat-select [compareWith]="studentDisplay" (selectionChange)="studentChange($event)">
@@ -5,8 +7,16 @@
             {{student.nom}}
         </mat-option>
     </mat-select>
-</mat-form-field>
+</mat-form-field><mat-label *ngIf="!selCurs">Curs: {{currentCurs}}</mat-label><br/>
 
+<mat-form-field appearance="fill" *ngIf="selCurs">
+    <mat-label>Cursos</mat-label>
+    <mat-select >
+        <mat-option  *ngFor="let curs of cursos" [value]="curs" >
+            {{curs}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
 
 
 
