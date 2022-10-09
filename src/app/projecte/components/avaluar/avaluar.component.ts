@@ -4,7 +4,7 @@ import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebServic
 import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
 import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
-import { CACHE_LLISTAT_ALUMNES } from '../../_model/04-utilitiesLayer/appUtilities';
+import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesLayer/appUtilities';
 
 @Component({
   selector: 'app-avaluar',
@@ -26,9 +26,8 @@ export class AvaluarComponent {
       let curs =  JSON.parse(token).cursos;
       if (students == null) {
         loginWebService.getStudents().subscribe(students => {
-          this.students = this.prepararLlistaAlumnes(curs,students);
-          let caducity = new Date(Date.now()+CACHE_LLISTAT_ALUMNES);
-          WebStoragePersistenceManager.saveDataWithCaducity(this.getTeacherName(token),JSON.stringify(this.students),caducity);
+          this.students = this.prepararLlistaAlumnes(curs,students);          
+          WebStoragePersistenceManager.saveDataWithCaducity(this.getTeacherName(token),JSON.stringify(this.students),new Date(Date.now()+CACHE_LLISTAT_ALUMNES));
         });
       }
       else {
@@ -44,7 +43,9 @@ export class AvaluarComponent {
 
   studentChange(current:any) {
     this.getToken().subscribe(token => {
-      let students = JSON.parse(WebStoragePersistenceManager.getData(this.getTeacherName(token)));
+
+      let students = JSON.parse(JSON.parse(WebStoragePersistenceManager.getData(this.getTeacherName(token))).value);
+
       let cursos = students.filter( (student: { user: any; })  =>  student.user==current.value.user )[0].cursos;
       if (this.selCurs = cursos.length>1) {
         this.cursos=cursos;
@@ -77,6 +78,7 @@ export class AvaluarComponent {
   getRubrica(curs:string) {
     this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
       this.rubrica = new Rubrica(JSON.stringify(rubrica));
+      WebStoragePersistenceManager.saveDataWithCaducity(JSON.stringify(rubrica),curs,new Date(Date.now()+CACHE_RUBRICA))
     })
   }
 }
