@@ -4,6 +4,7 @@ import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebServic
 import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
 import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
+import { CACHE_LLISTAT_ALUMNES } from '../../_model/04-utilitiesLayer/appUtilities';
 
 @Component({
   selector: 'app-avaluar',
@@ -19,13 +20,26 @@ export class AvaluarComponent {
   currentCurs!: string;
   
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
+    
     this.getToken().subscribe(token => {
-      loginWebService.getStudents().subscribe(students => {
-        let curs =  JSON.parse(token).cursos;
-        this.students = students.filter(this.cursing.bind(this.cursing,curs)).sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
-        WebStoragePersistenceManager.saveData(this.getTeacherName(token),JSON.stringify(this.students));
-      });
+      let students = WebStoragePersistenceManager.getDataWithCaducity(this.getTeacherName(token));
+      let curs =  JSON.parse(token).cursos;
+      if (students == null) {
+        loginWebService.getStudents().subscribe(students => {
+          this.students = this.prepararLlistaAlumnes(curs,students);
+          let caducity = new Date(Date.now()+CACHE_LLISTAT_ALUMNES);
+          WebStoragePersistenceManager.saveDataWithCaducity(this.getTeacherName(token),JSON.stringify(this.students),caducity);
+        });
+      }
+      else {
+        // students = { value: Array , caducity: date }
+        this.students = this.prepararLlistaAlumnes(curs,JSON.parse(JSON.parse(students).value));
+      }
     });
+  }
+
+  prepararLlistaAlumnes(curs:any,students:any) {
+    return students.filter(this.cursing.bind(this.cursing,curs)).sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
   }
 
   studentChange(current:any) {
