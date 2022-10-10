@@ -33,8 +33,6 @@ export class LoginComponent {
   }
 
   prorrogarToken(token: any):boolean {
-    const keysObj:number = Object.keys(token).length;
-    const renovar:number = JSON.parse(token['response'][0]).new.length;
     return Object.keys(token).length!==0 && JSON.parse(token['response'][0]).new.length!==0;
   }
 
