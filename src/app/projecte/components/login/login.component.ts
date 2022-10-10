@@ -1,3 +1,4 @@
+import { compilePipeFromMetadata } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
@@ -28,10 +29,19 @@ export class LoginComponent {
             this.errorDades = false;
             this.router.navigate(['/avaluar']);
        }
-       else this.errorDades = true;
+       else {
+        this.errorDades = true;
+        this.clearData();
+       }
     });
   }
 
+  clearError() {
+    this.errorDades = false;
+  }
+  clearData() {
+    this.usuari = ""; this.password = "";
+  }
   prorrogarToken(token: any):boolean {
     return Object.keys(token).length!==0 && JSON.parse(token['response'][0]).new.length!==0;
   }

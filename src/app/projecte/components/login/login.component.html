@@ -1,14 +1,13 @@
 <div>
     <mat-form-field appearance="standard">
         <mat-label>Usuari</mat-label>
-        <input matInput placeholder="Usuari" 
-            [(ngModel)]="usuari">
+        <input matInput placeholder="Usuari" [(ngModel)]="usuari" (input)="clearError()" >
     </mat-form-field>
 </div>
 <div>
     <mat-form-field appearance="standard">
         <mat-label>Password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" >
+        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" (input)="clearError()" >
         
             <button mat-icon-button matSuffix (click)="hide = !hide" 
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
