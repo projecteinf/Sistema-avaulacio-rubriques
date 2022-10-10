@@ -78,7 +78,7 @@ export class AvaluarComponent {
   getRubrica(curs:string) {
     this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
       this.rubrica = new Rubrica(JSON.stringify(rubrica));
-      WebStoragePersistenceManager.saveDataWithCaducity(JSON.stringify(rubrica),curs,new Date(Date.now()+CACHE_RUBRICA))
+      WebStoragePersistenceManager.saveDataWithCaducity(curs,JSON.stringify(rubrica),new Date(Date.now()+CACHE_RUBRICA))
     })
   }
 }

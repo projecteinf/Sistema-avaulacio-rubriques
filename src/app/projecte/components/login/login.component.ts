@@ -1,33 +1,34 @@
 import { Component } from '@angular/core';
-import { LoginWebService } 
-  from '../../_model/01-serviceLayer/api/loginWebService';
-import { ServiceManager } from '../../_model/01-serviceLayer/managers/serviceManager';
+import { Router } from '@angular/router';
+import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
 import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
 import { LoginDAO } from '../../_model/03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
 
-
+// URL: bezkoder.com/angular-12-jwt-auth/
 @Component({
   selector: 'app-root',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  hide = true;                
+  hide:boolean = true;                
   usuari?:string; 
   password?:string;  
-  jwtToken?:string;
+  errorDades:boolean=false;
 
-  constructor(private loginWebService: LoginWebService,private serviceManager: ServiceManager) {}
+  constructor(private loginWebService: LoginWebService,private router:Router) {}
 
   autentificar() {
     var login:Login = Login.inicialitzar(this.usuari!,this.password!);
     
     this.loginWebService.autentificar(login).subscribe(token => {
-       var tokenAux:any = token;
-       if (tokenAux==null) console.log("Autentificació no vàlida");
-       else this.jwtToken=tokenAux['response'][0];
-       LoginDAO.save(this.jwtToken!);
-       console.log(this.jwtToken);
+       if (token!=null) {
+            token=token = (<any>token)['response'][0]; 
+            LoginDAO.save(<any>token!);
+            this.errorDades = false;
+            this.router.navigate(['/avaluar']);
+       }
+       else this.errorDades = true;
     });
   }
 
