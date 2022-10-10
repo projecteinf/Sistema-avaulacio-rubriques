@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import { Login } from '../../02-entitiesLayer/entities/login/Login';
 import { environment } from 'src/environments/environment';
 import { LoginDAO } from '../../03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
+
 
 @Injectable({
     providedIn: 'root'
@@ -25,11 +25,10 @@ export class LoginWebService {
     }
 
     verificarToken():Observable<any> {
-        const token = LoginDAO.get(); // Obtenir Token de LocalStorage
-        if (tokenValid(token)) {
-            console.log("Token vigent dins període normal");
-            return of({});
-        }
+        const token:string = LoginDAO.get(); ;
+        
+        if (token!=null && tokenValid(token)) return of({});    // Token vàlid i vigent
+        
         const headerDict = {
             'Access-Control-Allow-Origin':'http://localhost:4200',
             'Content-Type':  'application/x-www-form-urlencoded; charset=UTF-8;application/json',

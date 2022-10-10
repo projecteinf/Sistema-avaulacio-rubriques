@@ -11,12 +11,16 @@ import { LoginDAO } from './projecte/_model/03-persistenceLayer/impl/webStorage/
 
 export class AppComponent {
   currentRoute: string;
+  autenticat:boolean = false;
+
   constructor(private loginWebService: LoginWebService, private router: Router) {
     this.currentRoute = "";
     this.router.events.subscribe(e => {
       if (e instanceof NavigationStart) if (e.url != "/login") {
+          this.autenticat = true;
           this.verificarToken();
       }
+      else this.autenticat = false;
     });
   }
   
@@ -29,7 +33,7 @@ export class AppComponent {
             LoginDAO.save(JSON.stringify(JSON.parse(v['response'][0]).new));
           }
         },
-        error: (e) => console.error("Error en l'execució"),        
+        error: (e) => { this.router.navigate(['/login']); }       // **** Cal veure què s'ha de fer
       }            
     );
   }
