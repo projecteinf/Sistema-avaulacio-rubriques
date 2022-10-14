@@ -5,6 +5,8 @@ import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebSe
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
 import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
 import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesLayer/appUtilities';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-avaluar',
@@ -22,17 +24,19 @@ export class AvaluarComponent {
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     
     this.getToken().subscribe(token => {
-      let students = WebStoragePersistenceManager.getDataWithCaducity(this.getTeacherName(token));
-      let curs =  JSON.parse(token).cursos;
-      if (students == null) {
-        loginWebService.getStudents().subscribe(students => {
-          this.students = this.prepararLlistaAlumnes(curs,students);          
-          WebStoragePersistenceManager.saveDataWithCaducity(this.getTeacherName(token),JSON.stringify(this.students),new Date(Date.now()+CACHE_LLISTAT_ALUMNES));
-        });
-      }
-      else {
-        // students = { value: Array , caducity: date }
-        this.students = this.prepararLlistaAlumnes(curs,JSON.parse(JSON.parse(students).value));
+      if (token!=null) {
+        let students = WebStoragePersistenceManager.getDataWithCaducity(this.getTeacherName(token));
+        let curs =  JSON.parse(token).cursos;
+        if (students == null) {
+          loginWebService.getStudents().subscribe(students => {
+            this.students = this.prepararLlistaAlumnes(curs,students);          
+            WebStoragePersistenceManager.saveDataWithCaducity(this.getTeacherName(token),JSON.stringify(this.students),new Date(Date.now()+CACHE_LLISTAT_ALUMNES));
+          });
+        }
+        else {
+          // students = { value: Array , caducity: date }
+          this.students = this.prepararLlistaAlumnes(curs,JSON.parse(JSON.parse(students).value));
+        }
       }
     });
   }

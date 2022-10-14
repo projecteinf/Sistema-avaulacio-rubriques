@@ -16,7 +16,6 @@ export class LoginWebService {
     constructor(private http:HttpClient) { }
 
     autentificar(login:Login):Observable<Login> { 
-        console.log("Funció autentificar: "+JSON.stringify(login));     // **** Eliminar!
         return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
@@ -42,7 +41,6 @@ export class LoginWebService {
             };
 
         try {
-            // Comprovar si el token és vàlid
             return this.http.get<String>(`${environment.urlApi}login`,requestOptions);
         } catch (e) {
             return of({});;

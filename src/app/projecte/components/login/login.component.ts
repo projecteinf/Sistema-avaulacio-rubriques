@@ -24,7 +24,7 @@ export class LoginComponent {
     
     this.loginWebService.autentificar(login).subscribe(token => {
        if (token!=null) {
-            token=token = (<any>token)['response'][0]; 
+            token = (<any>token)['response'][0]; 
             LoginDAO.save(<any>token!);
             this.errorDades = false;
             this.router.navigate(['/avaluar']);
