@@ -75,8 +75,8 @@ export class AvaluarComponent {
     return student.cursos.filter((cursant: any) => curs.includes(cursant)).length>0; 
   }
 
-  seleccionadaCapacitatClau(event:any) {
-    console.log(event.target);
+  seleccionadaCapacitatClau(event:any,capacitatClau:string,valoracio:string) {
+    console.log(`${capacitatClau}  ${valoracio}`);
   }
 
   getToken() { return this.loginWebService.getToken();  }
