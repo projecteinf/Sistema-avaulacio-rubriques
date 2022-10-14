@@ -5,8 +5,6 @@ import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebSe
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
 import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
 import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesLayer/appUtilities';
-import { Router } from '@angular/router';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-avaluar',
