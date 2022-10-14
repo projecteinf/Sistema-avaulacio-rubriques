@@ -75,6 +75,10 @@ export class AvaluarComponent {
     return student.cursos.filter((cursant: any) => curs.includes(cursant)).length>0; 
   }
 
+  seleccionadaCapacitatClau(event:any) {
+    console.log(event.target);
+  }
+
   getToken() { return this.loginWebService.getToken();  }
   getTeacherName(token:any) { return JSON.parse(token).name;}
   getRubrica(curs:string) {
