@@ -17,5 +17,7 @@ export class Rubrica extends EntityBase{
             });
         }
     }
-
+    public guardar() {
+        
+    }
 }
