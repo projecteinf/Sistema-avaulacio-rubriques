@@ -18,6 +18,7 @@ export class AvaluarComponent {
   rubrica?: Rubrica;
   selCurs: boolean = false;
   currentCurs!: string;
+  currentStudent!: any;
   
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     
@@ -48,7 +49,8 @@ export class AvaluarComponent {
 
       let students = JSON.parse(JSON.parse(WebStoragePersistenceManager.getData(this.getTeacherName(token))).value);
 
-      let cursos = students.filter( (student: { user: any; })  =>  student.user==current.value.user )[0].cursos;
+      // let cursos = students.filter( (student: { user: any; })  =>  student.user==current.value.user )[0].cursos;
+      let cursos = this.currentStudent.cursos;
       if (this.selCurs = cursos.length>1) {
         this.cursos=cursos;
         this.rubrica=undefined;
@@ -61,7 +63,7 @@ export class AvaluarComponent {
   );}
   
   courseChange(current:any) {
-    console.log(current.value);
+    this.currentCurs = current.value;
     this.getRubrica(current.value);
   }
 
@@ -77,8 +79,9 @@ export class AvaluarComponent {
 
   seleccionadaCapacitatClau(event:any,capacitatClau:any,indexVal:any) {
     capacitatClau.setNota(capacitatClau.valoracio[indexVal].notaMaxima);
+    const key:string = this.currentStudent.user + this.currentCurs;
+    console.log(key);
     this.rubrica?.guardar();
-    
   }
 
 

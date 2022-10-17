@@ -2,7 +2,7 @@
 
 <mat-form-field appearance="fill">
     <mat-label>Alumnes</mat-label>
-    <mat-select [compareWith]="studentDisplay" (selectionChange)="studentChange($event)">
+    <mat-select [compareWith]="studentDisplay" (selectionChange)="studentChange($event)" [(ngModel)]="currentStudent">
         <mat-option  *ngFor="let student of students" [value]="student" >
             {{student.nom}}
         </mat-option>
