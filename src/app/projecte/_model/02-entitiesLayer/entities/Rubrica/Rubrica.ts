@@ -1,3 +1,4 @@
+import { RubricaDAO } from '../../../03-persistenceLayer/impl/webStorage/daos/login/RubricaDAO';
 import { EntityBase } from '../entityBase';
 import { CapacitatClau } from './CapacitatClau';
 
@@ -17,7 +18,8 @@ export class Rubrica extends EntityBase{
             });
         }
     }
-    public guardar() {
-        
+    public guardar(key:string,data:string) {
+        RubricaDAO.save(key,data);
     }
+
 }

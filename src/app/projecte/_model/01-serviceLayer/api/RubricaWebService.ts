@@ -9,6 +9,10 @@ import { environment } from 'src/environments/environment';
 
 
 export class RubricaWebService {
+    saveRubrica(key: string, data: string) {
+
+        return this.http.post<boolean>(`${environment.urlApi}saveRubrica`,{key,data});
+    }
     constructor(private http:HttpClient) { }
 
     getRubrica(curs:string):Observable<any[]> { 

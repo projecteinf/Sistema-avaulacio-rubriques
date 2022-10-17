@@ -6,7 +6,7 @@ export class RubricaDAO implements IRubricaDAO {
     static get():string {
         return WebStoragePersistenceManager.getData("rubrica");
     }
-    static save(data:string) {
-        return WebStoragePersistenceManager.saveData('rubrica',data);
+    static save(key:string,data:string) {
+        return WebStoragePersistenceManager.saveData(key,data);
     }
 }
