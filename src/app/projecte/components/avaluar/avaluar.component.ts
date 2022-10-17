@@ -77,7 +77,7 @@ export class AvaluarComponent {
 
   seleccionadaCapacitatClau(event:any,capacitatClau:any,indexVal:any) {
     capacitatClau.setNota(capacitatClau.valoracio[indexVal].notaMaxima);
-    this.rubrica.guardar();
+    this.rubrica?.guardar();
     
   }
 
