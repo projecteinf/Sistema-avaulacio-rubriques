@@ -75,9 +75,12 @@ export class AvaluarComponent {
     return student.cursos.filter((cursant: any) => curs.includes(cursant)).length>0; 
   }
 
-  seleccionadaCapacitatClau(event:any,capacitatClau:string,valoracio:string) {
-    console.log(`${capacitatClau}  ${valoracio}`);
+  seleccionadaCapacitatClau(event:any,capacitatClau:any,indexVal:any) {
+    capacitatClau.setNota(capacitatClau.valoracio[indexVal].notaMaxima);
+    this.rubrica.guardar();
+    
   }
+
 
   getToken() { return this.loginWebService.getToken();  }
   getTeacherName(token:any) { return JSON.parse(token).name;}
