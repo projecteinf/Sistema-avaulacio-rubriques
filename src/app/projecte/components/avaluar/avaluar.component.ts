@@ -83,8 +83,10 @@ export class AvaluarComponent {
   getTeacherName(token:any) { return JSON.parse(token).name;}
   getRubrica(curs:string) {
     this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
-      this.rubrica = new Rubrica(JSON.stringify(rubrica));
-      WebStoragePersistenceManager.saveDataWithCaducity(curs,JSON.stringify(rubrica),new Date(Date.now()+CACHE_RUBRICA))
+      if (rubrica !=null && rubrica != undefined) {
+        this.rubrica = new Rubrica(JSON.stringify(rubrica));
+        WebStoragePersistenceManager.saveDataWithCaducity(curs,JSON.stringify(rubrica),new Date(Date.now()+CACHE_RUBRICA))
+      }
     })
   }
 }

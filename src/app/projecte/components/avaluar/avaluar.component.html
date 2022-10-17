@@ -23,9 +23,9 @@
     <tr >
         <td>{{capacitatClau.nom}}</td>
         <td *ngFor="let valoracio of capacitatClau.valoracio" (click)="seleccionadaCapacitatClau($event,capacitatClau.nom,valoracio.nom)">
-            {{valoracio.nom}} Nota màxima: {{valoracio.notaMaxima}} - Nota mínima: {{valoracio.notaMinima}}
-            
+            {{valoracio.nom}} <br/>&gt;= {{valoracio.notaMinima}} &lt;= {{valoracio.notaMaxima}}  
         </td>
+        <td>Nota assignada:</td>
     </tr>
 </table>
 
