@@ -10,8 +10,19 @@ import { environment } from 'src/environments/environment';
 
 export class RubricaWebService {
     saveRubrica(key: string, data: string) {
+        const headerDict = {
+            'Access-Control-Allow-Origin':'http://localhost:4200',
+            'Content-Type':  'application/x-www-form-urlencoded; charset=UTF-8;application/json',
+            'Accept': 'application/json, text/plain, /',
+            'Access-Control-Allow-Headers': 'Origin,Content-Type,Accept,Authorization'
+            };
 
-        return this.http.post<boolean>(`${environment.urlApi}saveRubrica`,{key,data});
+        const requestOptions = {                                                                                                                                                                                 
+            headers: new HttpHeaders(headerDict), 
+            };
+
+        console.log({"key":key,"data":data});
+        return this.http.post<String>(`${environment.urlApi}saveRubrica`,{key,data},requestOptions);               
     }
     constructor(private http:HttpClient) { }
 
