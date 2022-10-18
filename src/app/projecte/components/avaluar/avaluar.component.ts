@@ -45,9 +45,9 @@ export class AvaluarComponent {
   }
 
   studentChange(current:any) {
-    this.getToken().subscribe(token => {
+    //this.getToken().subscribe(token => {
 
-      let students = JSON.parse(JSON.parse(WebStoragePersistenceManager.getData(this.getTeacherName(token))).value);
+      //let students = JSON.parse(JSON.parse(WebStoragePersistenceManager.getData(this.getTeacherName(token))).value);
 
       // let cursos = students.filter( (student: { user: any; })  =>  student.user==current.value.user )[0].cursos;
       let cursos = this.currentStudent.cursos;
@@ -60,7 +60,7 @@ export class AvaluarComponent {
         this.getRubrica(this.currentCurs);
       }
     }
-  );}
+  //);}
   
   courseChange(current:any) {
     this.currentCurs = current.value;

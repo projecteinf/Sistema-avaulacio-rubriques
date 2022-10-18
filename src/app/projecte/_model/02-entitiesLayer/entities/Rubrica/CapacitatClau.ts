@@ -17,8 +17,8 @@ export class CapacitatClau extends EntityBase{
     }
 
     public setSeleccionada(index:number) {
-        for(let i=0;this.valoracio.length;i++)  this.valoracio[i].setSeleccionada(false);
-        this.valoracio[index].setSeleccionada(true);
+        for(let i=0;i<this.valoracio.length;i++)  this.valoracio[i].seleccionada=false;
+        this.valoracio[index].seleccionada=true;
             
     }
 }

@@ -13,6 +13,7 @@ export class Rubrica extends EntityBase{
                 element.valoracio.forEach((v:any) => {
                         v.notaMaxima = v.max;
                         v.notaMinima = v.min;
+                        v.seleccionada = false;
                     });
                 this.capacitatsClau?.push(new CapacitatClau(element.capacitat,element.valoracio))
             });

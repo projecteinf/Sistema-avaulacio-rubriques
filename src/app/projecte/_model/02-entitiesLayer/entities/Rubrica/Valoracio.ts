@@ -4,17 +4,14 @@ export class Valoracio extends EntityBase{
     nom: string;
     notaMaxima: number;
     notaMinima: number;
-    seleccionada: boolean;
+    seleccionada: boolean = false;
 
     public constructor(nom:string,notaMaxima:number,notaMinima:number) {
         super();
         this.nom = nom;
         this.notaMaxima = notaMaxima;
         this.notaMinima = notaMinima;
-        this.seleccionada = false;
     }
 
-    public setSeleccionada(seleccionada:boolean) {
-        this.seleccionada = seleccionada;
-    }
+    
 }
