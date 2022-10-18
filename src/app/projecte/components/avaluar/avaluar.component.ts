@@ -79,6 +79,8 @@ export class AvaluarComponent {
 
   seleccionadaCapacitatClau(event:any,capacitatClau:any,indexVal:any) {
     capacitatClau.setNota(capacitatClau.valoracio[indexVal].notaMaxima);
+    capacitatClau.setSeleccionada(indexVal);
+    
     const key:string = JSON.stringify({ 'key':this.currentStudent.user + this.currentCurs });
     const data:string = JSON.stringify(this.rubrica);
     

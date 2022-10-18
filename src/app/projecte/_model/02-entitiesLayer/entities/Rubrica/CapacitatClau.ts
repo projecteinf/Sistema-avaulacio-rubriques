@@ -15,4 +15,10 @@ export class CapacitatClau extends EntityBase{
     public setNota(nota:number) {
         this.nota = nota;
     }
+
+    public setSeleccionada(index:number) {
+        for(let i=0;this.valoracio.length;i++)  this.valoracio[i].setSeleccionada(false);
+        this.valoracio[index].setSeleccionada(true);
+            
+    }
 }

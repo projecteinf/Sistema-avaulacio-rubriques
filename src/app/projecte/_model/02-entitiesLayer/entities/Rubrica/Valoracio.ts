@@ -13,4 +13,8 @@ export class Valoracio extends EntityBase{
         this.notaMinima = notaMinima;
         this.seleccionada = false;
     }
+
+    public setSeleccionada(seleccionada:boolean) {
+        this.seleccionada = seleccionada;
+    }
 }
