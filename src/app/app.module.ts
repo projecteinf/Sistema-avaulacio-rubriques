@@ -12,7 +12,7 @@ import { HomeComponent } from './projecte/components/home/home.component';
 import { LoginComponent } from './projecte/components/login/login.component';
 import { Error404Component } from './projecte/components/error404/error404.component';
 import { AvaluarComponent } from './projecte/components/avaluar/avaluar.component';
-
+import { AuthGuardService } from './projecte/_model/01-serviceLayer/impl/AuthGuard/auth-guard-service.service'
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { AvaluarComponent } from './projecte/components/avaluar/avaluar.componen
     LoginComponent,
     Error404Component,
     AvaluarComponent,
+    
   ],
   imports: [
     MaterialModule,
@@ -30,9 +31,10 @@ import { AvaluarComponent } from './projecte/components/avaluar/avaluar.componen
     FormsModule, 
     AppRoutingModule, 
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
