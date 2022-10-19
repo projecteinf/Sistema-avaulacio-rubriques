@@ -5,9 +5,12 @@ import { HomeComponent } from './projecte/components/home/home.component';
 import { LoginComponent } from './projecte/components/login/login.component';
 import { Error404Component } from './projecte/components/error404/error404.component';
 import { AvaluarComponent } from './projecte/components/avaluar/avaluar.component';
+import { AuthGuardServiceService } from './projecte/_model/01-serviceLayer/managers/AuthGuard/auth-guard-service.service';
+
+// https://www.tektutorialshub.com/angular/angular-canactivate-guard-example/
 
 const routes: Routes = [
-  { path: 'avaluar', component: AvaluarComponent },
+  { path: 'avaluar', component: AvaluarComponent, canActivate:[AuthGuardServiceService] },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: Error404Component}
