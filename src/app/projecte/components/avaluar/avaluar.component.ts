@@ -45,11 +45,6 @@ export class AvaluarComponent {
   }
 
   studentChange(current:any) {
-    //this.getToken().subscribe(token => {
-
-      //let students = JSON.parse(JSON.parse(WebStoragePersistenceManager.getData(this.getTeacherName(token))).value);
-
-      // let cursos = students.filter( (student: { user: any; })  =>  student.user==current.value.user )[0].cursos;
       let cursos = this.currentStudent.cursos;
       if (this.selCurs = cursos.length>1) {
         this.cursos=cursos;
@@ -57,16 +52,17 @@ export class AvaluarComponent {
       }
       else {
         this.currentCurs=cursos[0];
-        this.getRubrica(this.currentCurs);
+        this.getRubrica(this.currentStudent.user,this.currentCurs);
       }
-    }
-  //);}
+  }
   
   courseChange(current:any) {
     this.currentCurs = current.value;
-    this.getRubrica(current.value);
+    this.getRubrica(this.currentStudent.user,current.value);
   }
 
+
+ 
   studentDisplay(st1:Login,st2:Login): boolean {
     const isValue = st1 && st2 ? st1.usuari == st2.usuari : st1 === st2;
     if (isValue) Object.assign(st2,st1);
@@ -86,19 +82,24 @@ export class AvaluarComponent {
     
     this.rubrica?.guardar(key,data);
     this.rubricaWebService.saveRubrica(key,data).subscribe((result:any) => { 
-      console.log(result); 
+      // Falta tractament errors ! De moment retorna un array buit! 
     });
   }
 
 
   getToken() { return this.loginWebService.getToken();  }
   getTeacherName(token:any) { return JSON.parse(token).name;}
-  getRubrica(curs:string) {
-    this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
-      if (rubrica !=null && rubrica != undefined) {
-        this.rubrica = new Rubrica(JSON.stringify(rubrica));
-        WebStoragePersistenceManager.saveDataWithCaducity(curs,JSON.stringify(rubrica),new Date(Date.now()+CACHE_RUBRICA))
+  getRubrica(usuari:string, curs:string) {
+    this.rubricaWebService.getRubricaPuntuada(usuari,curs).subscribe(rubrica => {
+      if (rubrica.length!=0) this.rubrica = new Rubrica(JSON.stringify(rubrica));
+      else {
+        this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
+          if (rubrica.length!=0) {
+            this.rubrica = new Rubrica(JSON.stringify(rubrica));
+            WebStoragePersistenceManager.saveDataWithCaducity(curs,JSON.stringify(rubrica),new Date(Date.now()+CACHE_RUBRICA))
+          }
+        });
       }
-    })
+    });
   }
 }

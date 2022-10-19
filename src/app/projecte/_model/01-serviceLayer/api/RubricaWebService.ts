@@ -29,6 +29,10 @@ export class RubricaWebService {
     getRubrica(curs:string):Observable<any[]> { 
         return this.http.get<any>(`${environment.urlApi}getRubrica/${curs}`);
      }
+
+     getRubricaPuntuada(alumne:string,curs:string):Observable<any[]> { 
+        return this.http.get<any>(`${environment.urlApi}getRubricaPuntuada/${curs}/${alumne}`);
+     }
  }
 
 
