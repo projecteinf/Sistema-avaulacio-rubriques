@@ -27,7 +27,7 @@ export class LoginComponent {
             token = (<any>token)['response'][0]; 
             LoginDAO.save(<any>token!);
             this.errorDades = false;
-            this.router.navigate(['/avaluar']);
+            this.router.navigate(['/home']);
        }
        else {
         this.errorDades = true;
