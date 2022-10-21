@@ -22,7 +22,7 @@ export class AvaluarComponent {
   
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     
-    this.getToken().subscribe(token => {
+    this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
         let students = WebStoragePersistenceManager.getDataWithCaducity(this.getTeacherName(token));
         let curs =  JSON.parse(token).cursos;
@@ -87,7 +87,7 @@ export class AvaluarComponent {
   }
 
 
-  getToken() { return this.loginWebService.getToken();  }
+  
   getTeacherName(token:any) { return JSON.parse(token).name;}
   getRubrica(usuari:string, curs:string) {
     this.rubricaWebService.getRubricaPuntuada(usuari,curs).subscribe(rubrica => {

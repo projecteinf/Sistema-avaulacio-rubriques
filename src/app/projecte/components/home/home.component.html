@@ -1,1 +1,23 @@
-<p>home works!</p>
+<mat-form-field appearance="fill" *ngIf="selCurs">
+    <mat-label>Cursos</mat-label>
+    <mat-select (selectionChange)="courseChange($event)">
+        <mat-option  *ngFor="let curs of cursos" [value]="curs" >
+            {{curs}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+<table *ngFor="let capacitatClau of rubrica?.capacitatsClau; let iCapClau">
+    <tr >
+        <td>{{capacitatClau.nom}}</td>
+        <td *ngFor="let valoracio of capacitatClau.valoracio ">
+            {{valoracio.nom}} <br/>{{valoracio.notaMinima}} - {{valoracio.notaMaxima}}
+            <span *ngIf="valoracio.seleccionada">X</span>
+        </td>
+        <td><mat-label>Nota assignada</mat-label></td>
+        <td><input [(ngModel)]="capacitatClau.nota"></td>
+    </tr>
+</table>
+
+
