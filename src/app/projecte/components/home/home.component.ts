@@ -13,6 +13,7 @@ import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesL
 })
 export class HomeComponent implements OnInit {
   rubrica?: Rubrica;
+  rubricaAvaluada?: Rubrica;
   selCurs: boolean = false;
   cursos!: String[];
   currentStudent!: User;
@@ -21,10 +22,12 @@ export class HomeComponent implements OnInit {
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
         this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,JSON.parse(token).cursos);
-        if (this.currentStudent.cursos.length==1) this.getRubrica(this.currentStudent.nom,this.currentStudent.cursos[0]);
-      }
+        if (this.currentStudent.cursos.length==1) {
+          this.getRubricaAvaluada(this.currentStudent.nom,this.currentStudent.cursos[0]);
+          this.getRubrica(this.currentStudent.nom,this.currentStudent.cursos[0]);
+        }
+     }
     });
-
   }
 
   ngOnInit(): void {
@@ -32,22 +35,24 @@ export class HomeComponent implements OnInit {
   }
 
   courseChange(current:any) {
-    
-    this.getRubrica(this.currentStudent.nom,current.value);
+    this.getRubricaAvaluada(this.currentStudent.nom,current.value);
+    this.getRubrica(this.currentStudent.nom,current.value);   
   }
 
-  getRubrica(usuari:string, curs:string) {
+  getRubricaAvaluada(usuari: string, curs: any) {
     this.rubricaWebService.getRubricaPuntuada(usuari,curs).subscribe(rubrica => {
-      if (rubrica.length!=0) this.rubrica = new Rubrica(JSON.stringify(rubrica));
-      else {
-        this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
+      if (rubrica.length!=0) this.rubricaAvaluada = new Rubrica(JSON.stringify(rubrica));
+    });
+  }
+
+  
+
+  getRubrica(usuari:string, curs:string) {
+      this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
           if (rubrica.length!=0) {
             this.rubrica = new Rubrica(JSON.stringify(rubrica));
             WebStoragePersistenceManager.saveDataWithCaducity(curs,JSON.stringify(rubrica),new Date(Date.now()+CACHE_RUBRICA))
           }
-        });
-      }
-    });
+      });
   }
-
 }
