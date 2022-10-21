@@ -22,10 +22,13 @@ export class HomeComponent implements OnInit {
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
         this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,JSON.parse(token).cursos);
-        if (this.currentStudent.cursos.length==1) {
-          this.getRubricaAvaluada(this.currentStudent.nom,this.currentStudent.cursos[0]);
-          this.getRubrica(this.currentStudent.nom,this.currentStudent.cursos[0]);
+        if (this.currentStudent.rol=="student") {
+          if (this.currentStudent.cursos.length==1) {
+            this.getRubricaAvaluada(this.currentStudent.nom,this.currentStudent.cursos[0]);
+            this.getRubrica(this.currentStudent.nom,this.currentStudent.cursos[0]);
+          }
         }
+        
      }
     });
   }
