@@ -5,6 +5,7 @@ import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebSe
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
 import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
 import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesLayer/appUtilities';
+import { User } from '../../_model/02-entitiesLayer/entities/user/User';
 
 @Component({
   selector: 'app-avaluar',
@@ -13,7 +14,7 @@ import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesL
 })
 export class AvaluarComponent {
 
-  students: Login[] = new Array<Login>();
+  students: Login[] = new Array<User>();
   cursos!: String[];
   rubrica?: Rubrica;
   selCurs: boolean = false;
@@ -21,7 +22,6 @@ export class AvaluarComponent {
   currentStudent!: any;
   
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
-    
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
         let students = WebStoragePersistenceManager.getDataWithCaducity(this.getTeacherName(token));
@@ -60,8 +60,6 @@ export class AvaluarComponent {
     this.currentCurs = current.value;
     this.getRubrica(this.currentStudent.user,current.value);
   }
-
-
  
   studentDisplay(st1:Login,st2:Login): boolean {
     const isValue = st1 && st2 ? st1.usuari == st2.usuari : st1 === st2;
@@ -85,8 +83,6 @@ export class AvaluarComponent {
       // Falta tractament errors ! De moment retorna un array buit! 
     });
   }
-
-
   
   getTeacherName(token:any) { return JSON.parse(token).name;}
   getRubrica(usuari:string, curs:string) {
@@ -98,6 +94,7 @@ export class AvaluarComponent {
             this.rubrica = new Rubrica(JSON.stringify(rubrica));
             WebStoragePersistenceManager.saveDataWithCaducity(curs,JSON.stringify(rubrica),new Date(Date.now()+CACHE_RUBRICA))
           }
+          else this.rubrica=undefined;
         });
       }
     });

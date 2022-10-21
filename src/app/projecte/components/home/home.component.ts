@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
 import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
 import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
+import { User } from '../../_model/02-entitiesLayer/entities/user/User';
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
 import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesLayer/appUtilities';
 
@@ -14,12 +15,12 @@ export class HomeComponent implements OnInit {
   rubrica?: Rubrica;
   selCurs: boolean = false;
   cursos!: String[];
-  currentStudent!: any;
+  currentStudent!: User;
 
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
-        console.log(token);
+        this.currentStudent = new User(token.nom,token.rol,token.cursos);
       }
     });
 
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit {
 
   courseChange(current:any) {
     
-    this.getRubrica(this.currentStudent.user,current.value);
+    this.getRubrica(this.currentStudent.nom,current.value);
   }
 
   getRubrica(usuari:string, curs:string) {
