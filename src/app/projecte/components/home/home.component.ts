@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
-        this.currentStudent = new User(token.nom,token.rol,token.cursos);
+        this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,JSON.parse(token).cursos);
+        if (this.currentStudent.cursos.length==1) this.getRubrica(this.currentStudent.nom,this.currentStudent.cursos[0]);
       }
     });
 

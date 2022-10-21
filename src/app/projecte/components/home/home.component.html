@@ -7,16 +7,13 @@
     </mat-select>
 </mat-form-field>
 
-
+<h1>{{this.currentStudent.nom}}</h1>
 <table *ngFor="let capacitatClau of rubrica?.capacitatsClau; let iCapClau">
-    <tr >
-        <td>{{capacitatClau.nom}}</td>
-        <td *ngFor="let valoracio of capacitatClau.valoracio ">
-            {{valoracio.nom}} <br/>{{valoracio.notaMinima}} - {{valoracio.notaMaxima}}
-            <span *ngIf="valoracio.seleccionada">X</span>
+    <tr><td>{{capacitatClau.nom}}</td></tr>
+    <tr *ngFor="let valoracio of capacitatClau.valoracio ">
+        <td *ngIf="valoracio.seleccionada">
+            {{valoracio.nom}} Nota:{{capacitatClau.nota}}
         </td>
-        <td><mat-label>Nota assignada</mat-label></td>
-        <td><input [(ngModel)]="capacitatClau.nota"></td>
     </tr>
 </table>
 
