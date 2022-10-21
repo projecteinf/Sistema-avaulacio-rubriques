@@ -29,8 +29,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // En el component app ja es comprova que el token sigui vàlid
-
-    // Cal llegir la rúbrica si l'alumne només té un curs assignat!
   }
 
   courseChange(current:any) {
