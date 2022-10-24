@@ -13,27 +13,48 @@ import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesL
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  students: User[] = new Array<User>();
   rubrica?: Rubrica;
   rubricaAvaluada?: Rubrica;
   selCurs: boolean = false;
-  cursos!: String[];
-  currentStudent!: User;
+  cursos!: string[];
+  currentStudent!: any;
   currentCurs!: string;
 
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
-        this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,JSON.parse(token).cursos);
-        if (this.currentStudent.rol=="student") this.rubricaAlumne();
-     }
-    });
+        this.cursos = JSON.parse(token).cursos;
+        this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,this.cursos);
+        
+        if (this.currentStudent.rol=="student") this.rubricaAlumne(this.currentStudent.user,this.currentStudent.cursos[0]);
+        else 
+          loginWebService.getStudents().subscribe(students => {
+            if (this.cursos.length==1) {
+              this.currentCurs = this.cursos[0];
+              this.students = this.prepararLlistaAlumnes(this.currentCurs,students);
+            }
+            else {
+              this.students = this.prepararLlistaAlumnes(this.cursos,students);      
+            }
+          })
+      }
+  });
   }
 
-  rubricaAlumne() {
-    if (this.currentStudent.cursos.length==1) {
-      this.getRubricaAvaluada(this.currentStudent.nom,this.currentStudent.cursos[0]);
-      this.getRubrica(this.currentStudent.nom,this.currentStudent.cursos[0]);
-    }
+  prepararLlistaAlumnes(curs:any,students:any) {
+    return students.filter(this.cursing.bind(this.cursing,curs)).sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
+  }
+
+
+  cursing(curs:any, student:any) { 
+    return student.cursos.filter((cursant: any) => curs.includes(cursant)).length>0; 
+  }
+
+
+  rubricaAlumne(name:string,curs:string) {
+      this.getRubricaAvaluada(name,curs);
+      this.getRubrica(name,curs);
   }
 
   studentChange(current:any) {
@@ -44,9 +65,9 @@ export class HomeComponent implements OnInit {
     }
     else {
       this.currentCurs=cursos[0];
-      this.getRubrica(this.currentStudent.nom,this.currentCurs);
+      this.rubricaAlumne(this.currentStudent.user,this.currentCurs);
     }
-}
+  }
 
 
   studentDisplay(st1:Login,st2:Login): boolean {
@@ -61,8 +82,7 @@ export class HomeComponent implements OnInit {
   }
 
   courseChange(current:any) {
-    this.getRubricaAvaluada(this.currentStudent.nom,current.value);
-    this.getRubrica(this.currentStudent.nom,current.value);   
+    this.rubricaAlumne(this.currentStudent.user,current.value); 
   }
 
   getRubricaAvaluada(usuari: string, curs: any) {
@@ -71,7 +91,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  
+  getTeacherName(token:any) { return JSON.parse(token).name;}
 
   getRubrica(usuari:string, curs:string) {
       this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
