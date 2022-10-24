@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
 import { RubricaWebService } from '../../_model/01-serviceLayer/api/RubricaWebService';
+import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
 import { Rubrica } from '../../_model/02-entitiesLayer/entities/Rubrica/Rubrica';
 import { User } from '../../_model/02-entitiesLayer/entities/user/User';
 import { WebStoragePersistenceManager } from '../../_model/03-persistenceLayer/managers/webStoragePersistenceManager';
@@ -17,23 +18,43 @@ export class HomeComponent implements OnInit {
   selCurs: boolean = false;
   cursos!: String[];
   currentStudent!: User;
+  currentCurs!: string;
 
   constructor(private loginWebService: LoginWebService,private rubricaWebService:RubricaWebService) { 
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
         this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,JSON.parse(token).cursos);
-        if (this.currentStudent.rol=="student") {
-         this.rubricaAlumne();
-        }
+        if (this.currentStudent.rol=="student") this.rubricaAlumne();
      }
     });
   }
+
   rubricaAlumne() {
     if (this.currentStudent.cursos.length==1) {
       this.getRubricaAvaluada(this.currentStudent.nom,this.currentStudent.cursos[0]);
       this.getRubrica(this.currentStudent.nom,this.currentStudent.cursos[0]);
     }
   }
+
+  studentChange(current:any) {
+    let cursos = this.currentStudent.cursos;
+    if (this.selCurs = cursos.length>1) {
+      this.cursos=cursos;
+      this.rubrica=undefined;
+    }
+    else {
+      this.currentCurs=cursos[0];
+      this.getRubrica(this.currentStudent.nom,this.currentCurs);
+    }
+}
+
+
+  studentDisplay(st1:Login,st2:Login): boolean {
+    const isValue = st1 && st2 ? st1.usuari == st2.usuari : st1 === st2;
+    if (isValue) Object.assign(st2,st1);
+    return isValue;
+  }
+
 
   ngOnInit(): void {
     // En el component app ja es comprova que el token sigui vàlid

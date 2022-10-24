@@ -14,7 +14,7 @@ import { User } from '../../_model/02-entitiesLayer/entities/user/User';
 })
 export class AvaluarComponent {
 
-  students: Login[] = new Array<User>();
+  students: User[] = new Array<User>();
   cursos!: String[];
   rubrica?: Rubrica;
   selCurs: boolean = false;
