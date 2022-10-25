@@ -12,8 +12,10 @@ import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesL
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-  students: User[] = new Array<User>();
+
+// En el component app ja es comprova que el token sigui vàlid
+
+export class HomeComponent {
   rubrica?: Rubrica;
   rubricaAvaluada?: Rubrica;
   selCurs: boolean = false;
@@ -26,62 +28,24 @@ export class HomeComponent implements OnInit {
       if (token!=null) {
         this.cursos = JSON.parse(token).cursos;
         this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,this.cursos);
-        
-        if (this.currentStudent.rol=="student") this.rubricaAlumne(this.currentStudent.user,this.currentStudent.cursos[0]);
-        else 
-          loginWebService.getStudents().subscribe(students => {
-            if (this.cursos.length==1) {
-              this.currentCurs = this.cursos[0];
-              this.students = this.prepararLlistaAlumnes(this.currentCurs,students);
-            }
-            else {
-              this.students = this.prepararLlistaAlumnes(this.cursos,students);      
-            }
-          })
+        this.currentCurs = this.cursos[0];
+        this.rubricaAlumne(this.currentStudent.nom,this.currentCurs);
       }
-  });
+    });
   }
-
-  prepararLlistaAlumnes(curs:any,students:any) {
-    return students.filter(this.cursing.bind(this.cursing,curs)).sort((st1:any,st2:any) => st1.nom?.localeCompare(st2.nom));
-  }
-
 
   cursing(curs:any, student:any) { 
     return student.cursos.filter((cursant: any) => curs.includes(cursant)).length>0; 
   }
 
-
   rubricaAlumne(name:string,curs:string) {
       this.getRubricaAvaluada(name,curs);
-      this.getRubrica(name,curs);
-  }
-
-  studentChange(current:any) {
-    let cursos = this.currentStudent.cursos;
-    if (this.selCurs = cursos.length>1) {
-      this.cursos=cursos;
-      this.rubrica=undefined;
-    }
-    else {
-      this.currentCurs=cursos[0];
-      this.rubricaAlumne(this.currentStudent.user,this.currentCurs);
-    }
-  }
-
-
-  studentDisplay(st1:Login,st2:Login): boolean {
-    const isValue = st1 && st2 ? st1.usuari == st2.usuari : st1 === st2;
-    if (isValue) Object.assign(st2,st1);
-    return isValue;
-  }
-
-
-  ngOnInit(): void {
-    // En el component app ja es comprova que el token sigui vàlid
+      this.getRubrica(curs);
   }
 
   courseChange(current:any) {
+    this.rubrica=undefined;
+    this.rubricaAvaluada=undefined;
     this.rubricaAlumne(this.currentStudent.user,current.value); 
   }
 
@@ -93,7 +57,7 @@ export class HomeComponent implements OnInit {
 
   getTeacherName(token:any) { return JSON.parse(token).name;}
 
-  getRubrica(usuari:string, curs:string) {
+  getRubrica(curs:string) {
       this.rubricaWebService.getRubrica(curs).subscribe(rubrica => {
           if (rubrica.length!=0) {
             this.rubrica = new Rubrica(JSON.stringify(rubrica));
@@ -101,4 +65,5 @@ export class HomeComponent implements OnInit {
           }
       });
   }
+
 }

@@ -1,14 +1,5 @@
-<mat-form-field appearance="fill">
-    <mat-label>Alumnes</mat-label>
-    <mat-select [compareWith]="studentDisplay" (selectionChange)="studentChange($event)" [(ngModel)]="currentStudent">
-        <mat-option  *ngFor="let student of students" [value]="student" >
-            {{student.nom}}
-        </mat-option>
-    </mat-select>
-</mat-form-field><mat-label *ngIf="!selCurs">Curs: {{currentCurs}}</mat-label><br/>
-
-
-
+<h1>{{this.currentStudent.nom}}
+<mat-label *ngIf="!selCurs"> - {{currentCurs}}</mat-label><br/></h1>
 <mat-form-field appearance="fill" *ngIf="selCurs">
     <mat-label>Cursos</mat-label>
     <mat-select (selectionChange)="courseChange($event)">
@@ -18,7 +9,6 @@
     </mat-select>
 </mat-form-field>
 
-<h1>{{this.currentStudent.nom}}</h1>
 <table *ngFor="let capacitatClau of rubricaAvaluada?.capacitatsClau; let iCapClau">
     <tr><td>{{capacitatClau.nom}}</td></tr>
     <tr *ngFor="let valoracio of capacitatClau.valoracio ">
