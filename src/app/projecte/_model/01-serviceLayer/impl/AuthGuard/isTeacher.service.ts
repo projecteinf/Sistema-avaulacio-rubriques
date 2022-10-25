@@ -17,7 +17,7 @@ export class isTeacher implements CanActivate {
         this.token = token;
       }
     );
-    return (JSON.parse(this.token)).rol == "teacher";
+    return (JSON.parse(this.token)).rol.toLocaleLowerCase() == "teacher";
   }
 
   
