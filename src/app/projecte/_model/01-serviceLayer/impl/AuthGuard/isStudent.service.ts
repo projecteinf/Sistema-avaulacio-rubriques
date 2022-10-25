@@ -5,7 +5,7 @@ import { LoginWebService } from '../../api/loginWebService';
 
 @Injectable()
 
-export class AuthGuardService implements CanActivate {
+export class isStudent implements CanActivate {
   
   private token:any;
 
@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate {
         this.token = token;
       }
     );
-    return (JSON.parse(this.token)).rol == "teacher";
+    return (JSON.parse(this.token)).rol.toLocaleLowerCase() == "student";
   }
 
   

@@ -12,7 +12,8 @@ import { HomeComponent } from './projecte/components/home/home.component';
 import { LoginComponent } from './projecte/components/login/login.component';
 import { Error404Component } from './projecte/components/error404/error404.component';
 import { AvaluarComponent } from './projecte/components/avaluar/avaluar.component';
-import { AuthGuardService } from './projecte/_model/01-serviceLayer/impl/AuthGuard/auth-guard-service.service'
+import { isTeacher } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isTeacher.service'
+import { isStudent } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isStudent.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { AuthGuardService } from './projecte/_model/01-serviceLayer/impl/AuthGua
     HttpClientModule,
     
   ],
-  providers: [AuthGuardService],
+  providers: [isTeacher,isStudent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
