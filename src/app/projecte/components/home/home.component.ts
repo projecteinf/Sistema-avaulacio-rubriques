@@ -30,6 +30,13 @@ export class HomeComponent {
         this.currentStudent = new User(JSON.parse(token).name,JSON.parse(token).rol,this.cursos);
         this.currentCurs = this.cursos[0];
         this.rubricaAlumne(this.currentStudent.nom,this.currentCurs);
+        this.loginWebService.getStudent(this.currentStudent.nom).subscribe(user => {
+          if (user.length!=0) {
+            this.currentStudent.user = this.currentStudent.nom;
+            this.currentStudent.nom = user[0].nom;
+          }
+        });
+        if (this.cursos.length>1) this.selCurs = true;
       }
     });
   }
@@ -47,6 +54,7 @@ export class HomeComponent {
     this.rubrica=undefined;
     this.rubricaAvaluada=undefined;
     this.rubricaAlumne(this.currentStudent.user,current.value); 
+    this.currentCurs = current.value;
   }
 
   getRubricaAvaluada(usuari: string, curs: any) {

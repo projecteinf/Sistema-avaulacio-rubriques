@@ -12,6 +12,7 @@ import { LoginDAO } from '../../03-persistenceLayer/impl/webStorage/daos/login/L
 
 
 export class LoginWebService {
+    
     login?:Login;
     constructor(private http:HttpClient) { }
 
@@ -49,6 +50,10 @@ export class LoginWebService {
 
     getStudents():Observable<Login[]> { 
        return this.http.get<Login[]>(`${environment.urlApi}getStudents`);       
+    }
+
+    getStudent(user: any) {
+        return this.http.get<Login[]>(`${environment.urlApi}getStudent/${user}`);
     }
 
 }

@@ -1,5 +1,4 @@
-<h1>{{this.currentStudent.nom}}
-<mat-label *ngIf="!selCurs"> - {{currentCurs}}</mat-label><br/></h1>
+<h1>{{this.currentStudent.nom}} - {{currentCurs}}</h1>
 <mat-form-field appearance="fill" *ngIf="selCurs">
     <mat-label>Cursos</mat-label>
     <mat-select (selectionChange)="courseChange($event)">
