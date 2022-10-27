@@ -16,9 +16,7 @@ export class PasswordsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const salt = bcrypt.genSaltSync(10);
-    const pass = bcrypt.hashSync('Pass@123', 10);
-    console.log(`${salt}<br>${pass}`);
+    
   }
 
 
