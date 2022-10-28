@@ -1,9 +1,9 @@
 <nav *ngIf="autenticat">
     <ul>
         <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
-        <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-        <li><a routerLink="/avaluar" routerLinkActive="active">Avaluar</a></li>
-        <li><a routerLink="/passwords" routerLinkActive="active">Passwords</a></li>
+        <li *ngIf="rol=='student'"><a routerLink="/home" routerLinkActive="active">Home</a></li>
+        <li *ngIf="rol!='student'"><a routerLink="/avaluar" routerLinkActive="active">Avaluar</a></li>
+        <li *ngIf="rol!='student'"><a routerLink="/passwords" routerLinkActive="active">Passwords</a></li>
     </ul>
 </nav>
 <router-outlet>

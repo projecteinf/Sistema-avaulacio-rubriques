@@ -12,6 +12,7 @@ import { LoginDAO } from './projecte/_model/03-persistenceLayer/impl/webStorage/
 export class AppComponent {
   currentRoute: string;
   autenticat:boolean = false;
+  rol?:string;
 
   constructor(private loginWebService: LoginWebService, private router: Router) {
     this.currentRoute = "";
@@ -19,6 +20,9 @@ export class AppComponent {
       if (e instanceof NavigationStart) if (e.url != "/login") {
           this.autenticat = true;
           this.verificarToken();
+          this.loginWebService.getToken().subscribe(token => {
+              this.rol =  JSON.parse(token).rol;
+          });
       }
       else this.autenticat = false;
     });

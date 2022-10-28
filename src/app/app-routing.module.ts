@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'avaluar', component: AvaluarComponent, canActivate:[isTeacher] },
   { path: 'home', component: HomeComponent, canActivate:[ isStudent ] },
   { path: 'login', component: LoginComponent },
-  { path: 'passwords', component: PasswordsComponent },
+  { path: 'passwords', component: PasswordsComponent, canActivate:[isTeacher] },
   { path: '**', component: Error404Component}
 ];
 
