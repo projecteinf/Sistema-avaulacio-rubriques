@@ -14,9 +14,18 @@ export class PasswordsComponent implements OnInit {
 // npm install bcryptjs
 
   constructor() { }
+  password?: string;
+  resultat?: string;
+  hide:boolean = false;
+  
 
   ngOnInit(): void {
     
+  }
+
+  calcular() {
+
+    bcrypt.hash(this.password!,12).then( hash => this.resultat=hash);
   }
 
 

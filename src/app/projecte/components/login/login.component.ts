@@ -20,6 +20,7 @@ export class LoginComponent {
   constructor(private loginWebService: LoginWebService,private router:Router) {}
 
   autentificar() {
+    
     var login:Login = Login.inicialitzar(this.usuari!,this.password!);
     
     this.loginWebService.autentificar(login).subscribe(token => {
