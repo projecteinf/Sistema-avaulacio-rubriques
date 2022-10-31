@@ -8,6 +8,7 @@ import { AvaluarComponent } from './projecte/components/avaluar/avaluar.componen
 import { isTeacher } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isTeacher.service';
 import { isStudent } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isStudent.service';
 import { PasswordsComponent } from './projecte/components/passwords/passwords.component';
+import { ChangePasswordComponent } from './projecte/components/change-password/change-password.component';
 
 // https://www.tektutorialshub.com/angular/angular-canactivate-guard-example/
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'avaluar', component: AvaluarComponent, canActivate:[isTeacher] },
   { path: 'home', component: HomeComponent, canActivate:[ isStudent ] },
   { path: 'login', component: LoginComponent },
+  { path: 'changePassword', component: ChangePasswordComponent },
   { path: 'passwords', component: PasswordsComponent, canActivate:[isTeacher] },
   { path: '**', component: Error404Component}
 ];

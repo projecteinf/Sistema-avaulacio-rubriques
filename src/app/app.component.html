@@ -4,6 +4,7 @@
         <li *ngIf="rol=='student'"><a routerLink="/home" routerLinkActive="active">Home</a></li>
         <li *ngIf="rol!='student'"><a routerLink="/avaluar" routerLinkActive="active">Avaluar</a></li>
         <li *ngIf="rol!='student'"><a routerLink="/passwords" routerLinkActive="active">Passwords</a></li>
+        <li><a routerLink="/changePassword" routerLinkActive="active">Change Password</a></li>
     </ul>
 </nav>
 <router-outlet>
