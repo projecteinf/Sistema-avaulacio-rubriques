@@ -16,6 +16,7 @@ import { isTeacher } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isTe
 import { isStudent } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isStudent.service';
 import { PasswordsComponent } from './projecte/components/passwords/passwords.component';
 import { ChangePasswordComponent } from './projecte/components/change-password/change-password.component';
+import { GetStudentsComponent } from './get-students/get-students.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ChangePasswordComponent } from './projecte/components/change-password/c
     AvaluarComponent,
     PasswordsComponent,
     ChangePasswordComponent,
+    GetStudentsComponent,
     
   ],
   imports: [
