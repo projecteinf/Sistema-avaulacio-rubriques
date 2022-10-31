@@ -15,6 +15,7 @@ import { AvaluarComponent } from './projecte/components/avaluar/avaluar.componen
 import { isTeacher } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isTeacher.service'
 import { isStudent } from './projecte/_model/01-serviceLayer/impl/AuthGuard/isStudent.service';
 import { PasswordsComponent } from './projecte/components/passwords/passwords.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PasswordsComponent } from './projecte/components/passwords/passwords.co
     Error404Component,
     AvaluarComponent,
     PasswordsComponent,
+    ChangePasswordComponent,
     
   ],
   imports: [

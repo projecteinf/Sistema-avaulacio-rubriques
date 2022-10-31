@@ -28,7 +28,8 @@ export class LoginComponent {
             token = (<any>token)['response'][0]; 
             LoginDAO.save(<any>token!);
             this.errorDades = false;
-            this.router.navigate(['/home']);
+            if (JSON.parse(<any>token).rol.toLowerCase()=='teacher') this.router.navigate(['/avaluar']);
+            else this.router.navigate(['/home']);
        }
        else {
         this.errorDades = true;
