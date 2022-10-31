@@ -75,15 +75,19 @@ export class AvaluarComponent {
     capacitatClau.setNota(capacitatClau.valoracio[indexVal].notaMaxima);
     capacitatClau.setSeleccionada(indexVal);
     
+    this.guardarNota();
+  }
+  
+  guardarNota() {    
     const key:string = JSON.stringify({ 'key':this.currentStudent.user + this.currentCurs });
     const data:string = JSON.stringify(this.rubrica);
     
-    this.rubrica?.guardar(key,data);
+    this.rubrica?.guardar(this.currentStudent.user + this.currentCurs,data);
     this.rubricaWebService.saveRubrica(key,data).subscribe((result:any) => { 
       // Falta tractament errors ! De moment retorna un array buit! 
     });
   }
-  
+
   getTeacherName(token:any) { return JSON.parse(token).name;}
   getRubrica(usuari:string, curs:string) {
     this.rubricaWebService.getRubricaPuntuada(usuari,curs).subscribe(rubrica => {

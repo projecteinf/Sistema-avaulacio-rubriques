@@ -22,13 +22,12 @@
 <table *ngFor="let capacitatClau of rubrica?.capacitatsClau; let iCapClau">
     <tr >
         <td>{{capacitatClau.nom}}</td>
-        <td *ngFor="let valoracio of capacitatClau.valoracio; let iVal = index" (click)="seleccionadaCapacitatClau($event,iCapClau,iVal)">
-            
+        <td *ngFor="let valoracio of capacitatClau.valoracio; let iVal = index" (click)="seleccionadaCapacitatClau($event,iCapClau,iVal)">    
             {{valoracio.nom}} <br/>{{valoracio.notaMinima}} - {{valoracio.notaMaxima}}
             <span *ngIf="valoracio.seleccionada">X</span>
         </td>
         <td><mat-label>Nota assignada</mat-label></td>
-        <td><input [(ngModel)]="capacitatClau.nota"></td>
+        <td><input [(ngModel)]="capacitatClau.nota" (input)="guardarNota()"></td>
     </tr>
 </table>
 
