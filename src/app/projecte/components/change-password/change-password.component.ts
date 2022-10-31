@@ -9,10 +9,14 @@ export class ChangePasswordComponent implements OnInit {
   hide:boolean = true;                
   usuari?:string; 
   password?:string; 
-  
+  newPassword?:string[2];
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  canviar():void {
+    
+  }
 }

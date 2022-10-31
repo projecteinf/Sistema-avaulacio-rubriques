@@ -13,9 +13,7 @@ import { CACHE_LLISTAT_ALUMNES, CACHE_RUBRICA } from '../../_model/04-utilitiesL
 export class GetStudentsComponent implements OnInit {
   currentStudent!: any;
   students: User[] = new Array<User>();
-    hide:boolean = true;                
-  usuari?:string; 
-  password?:string; 
+    
 
   constructor(private loginWebService: LoginWebService) { 
     this.loginWebService.getToken().subscribe(token => {
@@ -29,7 +27,6 @@ export class GetStudentsComponent implements OnInit {
           });
         }
         else {
-          // students = { value: Array , caducity: date }
           this.students = this.prepararLlistaAlumnes(curs,JSON.parse(JSON.parse(students).value));
         }
       }
