@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-
+  hide:boolean = true;                
+  usuari?:string; 
+  password?:string; 
+  
   constructor() { }
 
   ngOnInit(): void {

@@ -1,1 +1,11 @@
-<p>get-students works!</p>
+<mat-form-field appearance="fill">
+    <mat-label>Alumnes</mat-label>
+    <mat-select [compareWith]="studentDisplay" [(ngModel)]="currentStudent" (selectionChange)="studentChange($event)">
+        <mat-option  *ngFor="let student of students" [value]="student" >
+            {{student.nom}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+
