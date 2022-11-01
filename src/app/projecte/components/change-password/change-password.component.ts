@@ -31,4 +31,7 @@ export class ChangePasswordComponent implements OnInit {
   canviar():void {
 
   }
+  canviarAdmin():void {
+    
+  }
 }
