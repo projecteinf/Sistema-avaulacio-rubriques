@@ -38,7 +38,10 @@ export class ChangePasswordComponent implements OnInit {
     this.loginWebService.autentificar(login).subscribe(token => {
       if (token!=null) {
         this.passwordIncorrect = false;
-        bcrypt.hash(this.password!,12).then( hash => console.log(hash));
+        bcrypt.hash(this.password!,12).then( hash => {
+          login.password = this.newPasswordPropi;
+          this.loginWebService.update(login).subscribe(user => console.log(user));
+        });
       }  
       else this.passwordIncorrect = true;
     });

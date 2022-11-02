@@ -20,6 +20,11 @@ export class LoginWebService {
         return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
+    update(login:Login):Observable<Login> {         
+        return this.http.get<Login[]>(`${environment.urlApi}update`); 
+    }
+
+
     getToken():Observable<any> {
         return of(LoginDAO.get()); 
     }
