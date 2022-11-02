@@ -2,6 +2,8 @@ import { UniqueSelectionDispatcherListener } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebService';
 import { User } from '../../_model/02-entitiesLayer/entities/user/User';
+import * as bcrypt from 'bcryptjs';
+import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
 
 @Component({
   selector: 'app-change-password',
@@ -15,6 +17,9 @@ export class ChangePasswordComponent implements OnInit {
   newPassword?:string[2];
   newPasswordPropi?:string[2];
   isTeacher: boolean = false;
+  passwordNoComplexity: boolean = false;
+  passwordNOK:boolean = false;
+  passwordIncorrect:boolean = false;
 
   constructor(private loginWebService: LoginWebService) {
     this.loginWebService.getToken().subscribe(token => {
@@ -29,7 +34,14 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   canviar():void {
-
+    var login:Login = Login.inicialitzar(this.currentUser!.nom,this.password!);
+    this.loginWebService.autentificar(login).subscribe(token => {
+      if (token!=null) {
+        this.passwordIncorrect = false;
+        bcrypt.hash(this.password!,12).then( hash => console.log(hash));
+      }  
+      else this.passwordIncorrect = true;
+    });
   }
   canviarAdmin():void {
     
