@@ -21,7 +21,7 @@ export class LoginWebService {
     }
 
     update(login:Login):Observable<Login> {         
-        return this.http.get<Login[]>(`${environment.urlApi}update`); 
+        return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
 
