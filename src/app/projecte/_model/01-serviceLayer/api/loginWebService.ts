@@ -4,6 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { Login } from '../../02-entitiesLayer/entities/login/Login';
 import { environment } from 'src/environments/environment';
 import { LoginDAO } from '../../03-persistenceLayer/impl/webStorage/daos/login/LoginDAO';
+import { User } from '../../02-entitiesLayer/entities/user/User';
 
 
 @Injectable({
@@ -16,12 +17,14 @@ export class LoginWebService {
     login?:Login;
     constructor(private http:HttpClient) { }
 
-    autentificar(login:Login):Observable<Login> {         
+    autentificar(login:Login):Observable<Login> {      
+        //console.log("Autentificar: "+JSON.stringify(login));
         return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
     }
 
-    update(login:Login):Observable<Login> {         
-        return this.http.post<Login>(`${environment.urlApi}login`,JSON.stringify(login));
+    update(user?:any):Observable<Login> {
+        console.log(JSON.stringify(user));
+        return this.http.post<any>(`${environment.urlApi}update`,JSON.stringify(user));
     }
 
 

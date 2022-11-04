@@ -1,5 +1,6 @@
 import { EntityBase } from '../entityBase';
 
+
 export class Login extends EntityBase{
     usuari?: string;
     password?: string;

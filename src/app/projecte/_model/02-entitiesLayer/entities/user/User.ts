@@ -4,6 +4,7 @@ export class User extends EntityBase{
     cursos: string[];
     nom: string;
     rol: string;
+    password?: string;
 
     public constructor(nom:string, rol:string, cursos:string[]=[]) { 
         super();

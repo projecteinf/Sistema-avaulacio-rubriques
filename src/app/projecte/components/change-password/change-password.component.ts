@@ -4,6 +4,7 @@ import { LoginWebService } from '../../_model/01-serviceLayer/api/loginWebServic
 import { User } from '../../_model/02-entitiesLayer/entities/user/User';
 import * as bcrypt from 'bcryptjs';
 import { Login } from '../../_model/02-entitiesLayer/entities/login/Login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -14,17 +15,19 @@ export class ChangePasswordComponent implements OnInit {
   hide:boolean = true;                
   currentUser?: User;
   password?:string; 
-  newPassword?:string[2];
-  newPasswordPropi?:string[2];
+  newPassword1!:string;
+  newPassword2!:string;
+  newPasswordPropi1!:string;
+  newPasswordPropi2!:string;
   isTeacher: boolean = false;
   passwordNoComplexity: boolean = false;
   passwordNOK:boolean = false;
   passwordIncorrect:boolean = false;
 
-  constructor(private loginWebService: LoginWebService) {
+  constructor(private loginWebService: LoginWebService,private router:Router) {
     this.loginWebService.getToken().subscribe(token => {
       if (token!=null) {
-        this.currentUser = new User(JSON.parse(token).name,JSON.parse(token).rol);
+        this.currentUser = new User(JSON.parse(token).name,JSON.parse(token).rol,JSON.parse(token).cursos);
         this.isTeacher = this.currentUser.isTeacher();
       }
     })
@@ -38,11 +41,15 @@ export class ChangePasswordComponent implements OnInit {
     this.loginWebService.autentificar(login).subscribe(token => {
       if (token!=null) {
         this.passwordIncorrect = false;
-        bcrypt.hash(this.password!,12).then( hash => {
-          login.password = this.newPasswordPropi;
-          this.loginWebService.update(login).subscribe(user => console.log(user));
-        });
-      }  
+        let dades:any=this.currentUser;
+        bcrypt.hash(this.newPasswordPropi1,12).then( hash => {
+            dades.password=hash;
+            this.loginWebService.update(dades).subscribe(
+                result => { 
+                  this.router.navigate(['/login']);
+                 }
+            )});
+        }  
       else this.passwordIncorrect = true;
     });
   }
