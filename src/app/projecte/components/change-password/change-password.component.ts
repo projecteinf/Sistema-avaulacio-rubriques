@@ -39,7 +39,7 @@ export class ChangePasswordComponent implements OnInit {
   canviar():void {
     var login:Login = Login.inicialitzar(this.currentUser!.nom,this.password!);
     this.loginWebService.autentificar(login).subscribe(token => {
-      if (token!=null || !Login.verificarPassword(this.newPasswordPropi1,this.newPasswordPropi2)) {
+      if (token!=null && !Login.verificarPassword(this.newPasswordPropi1,this.newPasswordPropi2)) {
         this.passwordIncorrect = false;
         let dades:any=this.currentUser;
         bcrypt.hash(this.newPasswordPropi1,12).then( hash => {
