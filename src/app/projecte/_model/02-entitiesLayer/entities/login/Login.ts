@@ -19,6 +19,7 @@ export class Login extends EntityBase{
     }
 
     public static verificarPassword(password1: string, password2: string):boolean {
+        // https://www.ocpsoft.org/tutorials/regular-expressions/password-regular-expression/
         return new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$').test(password1);
         
     }
