@@ -17,4 +17,9 @@ export class Login extends EntityBase{
     override toString():string {
         return `Id: ${this.id} | Usuari:${this.usuari} | Password:${this.password}`;
     }
+
+    public static verificarPassword(password1: string, password2: string):boolean {
+        return new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$').test(password1);
+        
+    }
 }
